@@ -6,6 +6,7 @@ import facebook from '../img/social/facebook.svg'
 import instagram from '../img/social/instagram.svg'
 import twitter from '../img/social/twitter.svg'
 import vimeo from '../img/social/vimeo.svg'
+import line from '../img/social/line.svg'
 
 const Footer = class extends React.Component {
   render() {
@@ -84,7 +85,7 @@ const Footer = class extends React.Component {
                 <a title="twitter" href="https://twitter.com">
                   <img
                     className="fas fa-lg"
-                    src={twitter}
+                    src={line}
                     alt="Twitter"
                     style={{ width: '1em', height: '1em' }}
                   />
