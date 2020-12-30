@@ -77,6 +77,18 @@ export const IndexPageTemplate = ({
                   <div className="tile">
                     <h3 className="subtitle">{mainpitch.description}</h3>
                   </div>
+                  <div className="tile">
+                    <h3 className="subtitle">{mainpitch.second}</h3>
+                  </div>
+                  <div className="tile">
+                    <h3 className="subtitle">{mainpitch.third}</h3>
+                  </div>
+                  <div className="tile">
+                    <h3 className="subtitle">{mainpitch.context}</h3>
+                  </div>
+                  <div className="tile">
+                    <h3 className="subtitle">{mainpitch.last}</h3>
+                  </div>
                 </div>
                 <div className="columns">
                   <div className="column is-12">
@@ -171,6 +183,10 @@ export const pageQuery = graphql`
         mainpitch {
           title
           description
+          second
+          third
+          context
+          last
         }
         description
         intro {

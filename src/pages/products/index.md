@@ -1,14 +1,11 @@
 ---
 templateKey: 'product-page'
 path: /products
-title: Our Coffee
+title: 服務項目
 image: /img/jumbotron.jpg
-heading: Great coffee with a conscience
+heading: 診療項目
 description: >-
-  Kaldi is the ultimate spot for coffee lovers who want to learn about their
-  java’s origin and support the farmers that grew it. We take coffee production,
-  roasting and brewing seriously and we’re glad to pass that knowledge to
-  anyone.
+  壓力、適應障礙、失眠、憂鬱症、焦慮症、恐慌症、強迫症、慢性疼痛、疲勞、精神官能症、自律神經失調、經前症候群、產後憂鬱、飲食障礙、更年期情緒障礙、注意力不足過動症、閱讀障礙、酒精與各種物質成癮、老年身心問題、情感性疾患、思覺失調、失智。
 intro:
   blurbs:
     - image: /img/coffee.png
@@ -71,31 +68,35 @@ testimonials:
       stance on empowering farmers and transparency.
 full_image: /img/products-full-width.jpg
 pricing:
-  heading: Monthly subscriptions
+  heading: 收費標準
   description: >-
+    健保收費標準
+    ※榮民、低收入戶，依健保卡內的身分註記為準。
+    ※重大傷病：依紙本證明或健保卡內的註記為準。
+    自費看診: 掛號費150元 + 醫師診察費400元 (不含治療費及諮商費) + 藥費
     We make it easy to make great coffee a part of your life. Choose one of our
     monthly subscription plans to receive great coffee at your doorstep each
     month. Contact us about more details and payment info.
   plans:
-    - description: Perfect for the drinker who likes to enjoy 1-2 cups per day.
+    - description: 重大傷病、榮民、殘障患者、低收入戶、65歲以上老人
       items:
         - 3 lbs of coffee per month
         - Green or roasted beans"
         - One or two varieties of beans"
-      plan: Small
-      price: '50'
-    - description: 'Great for avid drinkers, java-loving couples and bigger crowds'
+      plan: 掛號費
+      price: '150'
+    - description: '重大傷病、榮民、低收入戶'
       items:
         - 6 lbs of coffee per month
         - Green or roasted beans
         - Up to 4 different varieties of beans
-      plan: Big
-      price: '80'
-    - description: Want a few tiny batches from different varieties? Try our custom plan
+      plan: 基本部分負擔
+      price: '50'
+    - description: 健保藥費：每超過100元，自付20元，超過200元，自付40元，以此類推，自付上限200元。
       items:
         - Whatever you need
         - Green or roasted beans
         - Unlimited varieties
-      plan: Custom
-      price: '??'
+      plan: 藥品部分負擔
+      price: '0-200'
 ---

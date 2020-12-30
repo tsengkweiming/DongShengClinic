@@ -1,19 +1,19 @@
 ---
 templateKey: 'about-page'
 path: /about
-title: About our values
+title: 關於我們 About our values
 ---
-### Shade-grown coffee
-Coffee is a small tree or shrub that grows in the forest understory in its wild form, and traditionally was grown commercially under other trees that provided shade. The forest-like structure of shade coffee farms provides habitat for a great number of migratory and resident species.
+### 診所介紹
+冬勝診所是一間具有專業教授院長級醫師親自看診的身心精神科診所。地點位於高雄市中正大順路口，捷運橘線文化中心五塊厝站的中間，緊鄰輕軌凱旋公園站，50號公車大順三路口站。提供身心靈精神疾患之諮詢、診斷與治療。誓願成為民眾身心靈健康的守護者、並提供精神心理衛生相關的照顧。
 
-### Single origin
-Single-origin coffee is coffee grown within a single known geographic origin. Sometimes, this is a single farm or a specific collection of beans from a single country. The name of the coffee is then usually the place it was grown to whatever degree available.
+### 診療項目
+主要診療的項目包含失眠、疼痛、憂鬱、焦慮、壓力、恐慌、強迫症等疾患！包含鑑別失智、認知功能障礙、譫妄等老年的精神衛生。在兒童青少年方面包含妥瑞氏症、自閉症、注意力不足、過動兒等諮詢與治療。在疼痛的鑒別與治療方面我們導入中西合併的辨證原則，在精神衛生面向我們重視慢性疼痛與憂鬱症的關聯、而經絡的病因我們也加入華人特色針灸治療的方法。有心理治療需求個案我們會安排博士級臨床心理師參與。
 
-### Sustainable farming
-Sustainable agriculture is farming in sustainable ways based on an understanding of ecosystem services, the study of relationships between organisms and their environment. What grows where and how it is grown are a matter of choice and careful consideration for nature and communities.
+### 診所精神
+冬勝診所將秉持關懷社區民眾的理念，以持續進步的態度精進我們的診療技術、掌握社會、家庭與個人互動的變因。依據精準醫療與全人的照顧為治療方向，協助案主及親友對診療有正確的觀念，提升抗壓力、增加免疫力、平衡自律神經的功能，進而重新恢復健康。
 
-### Direct sourcing
-Direct trade is a form of sourcing practiced by some coffee roasters. Advocates of direct trade practices promote direct communication and price negotiation between buyer and farmer, along with systems that encourage and incentivize quality.
+### 醫師的話
+2020年正逢nCOVID-19全球流行的一年，很多病痛者不敢到醫院就醫！翻閱清朝柯琴所撰傷寒來蘇集一書（西元1706年），「待我君來，其可蘇息」！真心盼望在新型冠狀病毒的疫情當下，撫昔看今， 冬勝診所的開幕使我們社區民眾的困苦獲得蘇息。我們也在此立下心願，若您或周遭親友有任何身心靈相關的問題、困擾，讓我們一起來面對它！ 冬勝診所 祝您痛苦平息、身心靈健康。
 
 ### Reinvest profits
 We want to truly empower the communities that bring amazing coffee to you. That’s why we reinvest 20% of our profits into farms, local businesses and schools everywhere our coffee is grown. You can see the communities grow and learn more about coffee farming on our blog.

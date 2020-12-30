@@ -39,7 +39,7 @@ export default class Index extends React.Component {
         <section className="section">
           <div className="container">
             <div className="content">
-              <h1>Contact</h1>
+              <h1>聯繫我們 Contact</h1>
               <form
                 name="contact"
                 method="post"
@@ -58,7 +58,7 @@ export default class Index extends React.Component {
                 </div>
                 <div className="field">
                   <label className="label" htmlFor={'name'}>
-                    Your name
+                    稱呼 Your name
                   </label>
                   <div className="control">
                     <input
@@ -73,7 +73,7 @@ export default class Index extends React.Component {
                 </div>
                 <div className="field">
                   <label className="label" htmlFor={'email'}>
-                    Email
+                    郵件信箱 Email
                   </label>
                   <div className="control">
                     <input
@@ -88,7 +88,7 @@ export default class Index extends React.Component {
                 </div>
                 <div className="field">
                   <label className="label" htmlFor={'message'}>
-                    Message
+                    寫說的話 Message
                   </label>
                   <div className="control">
                     <textarea
