@@ -51,11 +51,6 @@ const Footer = class extends React.Component {
                         Latest Stories
                       </Link>
                     </li>
-                    <li>
-                      <Link className="navbar-item" to="/contact">
-                        Contact
-                      </Link>
-                    </li>
                   </ul>
                 </section>
               </div>
