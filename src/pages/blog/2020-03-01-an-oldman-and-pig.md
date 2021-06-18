@@ -3,13 +3,13 @@ templateKey: blog-post
 title: 淺談老人與山豬
 date: 2020-03-04T15:04:10.000Z
 featuredpost: false
-featuredimage: /img/chemex.jpg
+featuredimage: /img/blog_threepig.png
 description: Brewing with a Chemex probably seems like a complicated, time-consuming ordeal, but once you get used to the process, it becomes a soothing ritual that's worth the effort every time.
 tags:
   - Dementia
   - Elderly
 ---
-![](/img/chemex.jpg)
+![](/img/blog_threepig.png)
 
     天啊！曾醫師：老人跟山豬有什麼關係呀？
 

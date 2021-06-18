@@ -3,13 +3,13 @@ templateKey: blog-post
 title: 心悸也可以找身心科
 date: 2019-12-17T15:04:10.000Z
 featuredpost: false
-featuredimage: /img/flavor_wheel.jpg
+featuredimage: /img/blog_heartache.jpg
 description: The Palpitation, the official resource used by Palpitation tasters, has been revised for the first time this year.
 tags:
   - Palpitation
   - tasting
 ---
-![flavor wheel](/img/flavor_wheel.jpg)
+![flavor wheel](/img/blog_heartache.jpg)
 
 心跳過快一般人以為就是看心臟科而已！但是跟身心科也極為有關，因為心腦合一！
 
@@ -19,20 +19,10 @@ tags:
 
 找對醫師可以改善我們的生活品質！
 
+## 診所資訊
 
-## What the updates mean to you
+>預約電話: 07-727-8392
 
-The Specialty Coffee Association of America (SCAA), founded in 1982, is a non-profit trade organization for the specialty coffee industry. With members located in more than 40 countries, SCAA represents every segment of the specialty coffee industry, including:
+>地址: 802台灣高雄市苓雅區中正一路
 
-* producers
-* roasters
-* importers/exporters
-* retailers
-* manufacturers
-* baristas
-
-For over 30 years, SCAA has been dedicated to creating a vibrant specialty coffee community by recognizing, developing and promoting specialty coffee. SCAA sets and maintains quality standards for the industry, conducts market research, and provides education, training, resources, and business services for its members.
-
-Coffee cupping, or coffee tasting, is the practice of observing the tastes and aromas of brewed coffee. It is a professional practice but can be done informally by anyone or by professionals known as "Q Graders". A standard coffee cupping procedure involves deeply sniffing the coffee, then loudly slurping the coffee so it spreads to the back of the tongue.
-
-The coffee taster attempts to measure aspects of the coffee's taste, specifically the body (the texture or mouthfeel, such as oiliness), sweetness, acidity (a sharp and tangy feeling, like when biting into an orange), flavour (the characters in the cup), and aftertaste. Since coffee beans embody telltale flavours from the region where they were grown, cuppers may attempt to identify the coffee's origin.
+>冬勝診所 守護您的健康

@@ -2,39 +2,30 @@
 templateKey: 'product-page'
 path: /products
 title: 服務項目
-image: /img/jumbotron.jpg
+image: /img/products_buisnesscard.jpg
 heading: 診療項目
 description: >-
   壓力、適應障礙、失眠、憂鬱症、焦慮症、恐慌症、強迫症、慢性疼痛、疲勞、精神官能症、自律神經失調、經前症候群、產後憂鬱、飲食障礙、更年期情緒障礙、注意力不足過動症、閱讀障礙、酒精與各種物質成癮、老年身心問題、情感性疾患、思覺失調、失智。
 intro:
   blurbs:
-    - image: /img/coffee.png
+    - image: /img/scene0.jpg
       text: >
-        We sell green and roasted coffee beans that are sourced directly from
-        independent farmers and farm cooperatives. We’re proud to offer a
-        variety of coffee beans grown with great care for the environment and
-        local communities. Check our post or contact us directly for current
-        availability.
-    - image: /img/coffee-gear.png
+        即使說心病需要心藥醫，曾醫師堅持排除器質性疾病為優先的診療原則。
+        診療過程會談親切且詳細，使看診民眾能夠安心地暢談。
+    - image: /img/scene1.jpg
       text: >
-        We offer a small, but carefully curated selection of brewing gear and
-        tools for every taste and experience level. No matter if you roast your
-        own beans or just bought your first french press, you’ll find a gadget
-        to fall in love with in our shop.
-    - image: /img/tutorials.png
+        各路病友間的口耳相傳是冬勝診所個案最主要的來源，一個報一個，
+        親友殷殷的提醒，終於讓人鼓起勇氣來探索自己，成為一生的印記。
+    - image: /img/scene2.jpg
       text: >
-        Love a great cup of coffee, but never knew how to make one? Bought a
-        fancy new Chemex but have no clue how to use it? Don't worry, we’re here
-        to help. You can schedule a custom 1-on-1 consultation with our baristas
-        to learn anything you want to know about coffee roasting and brewing.
-        Email us or call the store for details.
-    - image: /img/meeting-space.png
+        曾院長20年針灸的針灸療程中，讓患者親身認識自我身心與經絡的關聯。
+        你會發現在冬勝診所團隊醫護人員的治療之下，排除障礙、甩開痛苦，
+        身心健康成為我們生活的日常。
+    - image: /img/scene3.jpg
       text: >
-        We believe that good coffee has the power to bring people together.
-        That’s why we decided to turn a corner of our shop into a cozy meeting
-        space where you can hang out with fellow coffee lovers and learn about
-        coffee making techniques. All of the artwork on display there is for
-        sale. The full price you pay goes to the artist.
+        心靈的苦楚猶如身體的酸痛一般 ，有路徑、有來源，會惡化、會聚集，
+        關鍵點在於我們醫病之間是否能夠攜手共同面對、一起承擔。
+
   heading: What we offer
   description: >
     Kaldi is the ultimate spot for coffee lovers who want to learn about their
@@ -42,7 +33,7 @@ intro:
     production, roasting and brewing seriously and we’re glad to pass that
     knowledge to anyone. This is an edit via identity...
 main:
-  heading: Great coffee with no compromises
+  heading: 2020年8月8日謹賀冬勝診所開幕
   description: >
     We hold our coffee to the highest standards from the shrub to the cup.
     That’s why we’re meticulous and transparent about each step of the coffee’s
@@ -50,13 +41,16 @@ main:
     optimal for the plants, farmers and the local environment.
   image1:
     alt: A close-up of a paper filter filled with ground coffee
-    image: /img/products-grid3.jpg
+    image: /img/products_opening1.jpg
   image2:
     alt: A green cup of a coffee on a wooden table
-    image: /img/products-grid2.jpg
+    image: /img/products_opening2.jpg
   image3:
     alt: Coffee beans
-    image: /img/products-grid1.jpg
+    image: /img/products_opening.jpg
+  image4:
+    alt: Coffee beans
+    image: /img/products_opening3.jpg
 testimonials:
   - author: Elisabeth Kaurismäki
     quote: >-
@@ -66,7 +60,7 @@ testimonials:
     quote: >-
       Kaldi is the place to go if you want the best quality coffee. I love their
       stance on empowering farmers and transparency.
-full_image: /img/products-full-width.jpg
+full_image: /img/products_buisnesscard.jpg
 pricing:
   heading: 收費標準
   description: >-

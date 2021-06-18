@@ -14,6 +14,3 @@ title: 關於我們 About our values
 
 ### 醫師的話
 2020年正逢nCOVID-19全球流行的一年，很多病痛者不敢到醫院就醫！翻閱清朝柯琴所撰傷寒來蘇集一書（西元1706年），「待我君來，其可蘇息」！真心盼望在新型冠狀病毒的疫情當下，撫昔看今， 冬勝診所的開幕使我們社區民眾的困苦獲得蘇息。我們也在此立下心願，若您或周遭親友有任何身心靈相關的問題、困擾，讓我們一起來面對它！ 冬勝診所 祝您痛苦平息、身心靈健康。
-
-### Reinvest profits
-We want to truly empower the communities that bring amazing coffee to you. That’s why we reinvest 20% of our profits into farms, local businesses and schools everywhere our coffee is grown. You can see the communities grow and learn more about coffee farming on our blog.

@@ -89,6 +89,9 @@ export const IndexPageTemplate = ({
                   <div className="tile">
                     <h3 className="subtitle">{mainpitch.last}</h3>
                   </div>
+                  <div className="tile">
+                    <h3 className="subtitle">{mainpitch.sign}</h3>
+                  </div>
                 </div>
                 <div className="columns">
                   <div className="column is-12">
