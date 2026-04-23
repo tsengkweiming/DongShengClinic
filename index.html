@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>冬勝診所 — 身心靈健康的守護者</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Sans+TC:wght@300;400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          cream: '#FAF6EE',
+          'cream-dark': '#F0E8D8',
+          brand: '#D64000',
+          'brand-dark': '#8B2500',
+          'brand-light': '#FF6B35',
+          ink: '#1A1710',
+          'ink-muted': '#7A7568',
+          'ink-faint': '#C4BFB5',
+        },
+        fontFamily: {
+          serif: ['"Noto Serif TC"', 'Georgia', 'serif'],
+          sans: ['"Noto Sans TC"', '"Inter"', 'system-ui', 'sans-serif'],
+          inter: ['"Inter"', 'system-ui', 'sans-serif'],
+        },
+        letterSpacing: {
+          tightest: '-0.04em',
+          tighter: '-0.03em',
+          tight: '-0.02em',
+          widest: '0.2em',
+          'ultra-wide': '0.35em',
+        },
+      }
+    }
+  }
+</script>
+<style>
+  /* ── Global ── */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: #FAF6EE;
+    color: #1A1710;
+    font-family: 'Noto Sans TC', 'Inter', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Grain noise texture ── */
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ── Typography ── */
+  .display-xl {
+    font-family: 'Noto Serif TC', Georgia, serif;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+  }
+  .display-lg {
+    font-family: 'Noto Serif TC', Georgia, serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  .label-caps {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+  }
+
+  /* ── Hero gradient ── */
+  .hero-bg {
+    background:
+      radial-gradient(ellipse 80% 80% at 100% 100%, #D64000 0%, transparent 70%),
+      radial-gradient(ellipse 60% 60% at 85% 70%, #FF5500 0%, transparent 50%),
+      radial-gradient(ellipse 40% 40% at 70% 90%, #8B2500 0%, transparent 60%),
+      #FAF6EE;
+  }
+
+  /* ── Red section gradient ── */
+  .red-section {
+    background:
+      radial-gradient(ellipse 120% 80% at 0% 50%, #D64000 0%, #8B2500 100%);
+  }
+
+  /* ── Nav ── */
+  .nav-link {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #1A1710;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: #D64000;
+    transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .nav-link:hover { color: #D64000; }
+  .nav-link:hover::after { width: 100%; }
+
+  /* ── Buttons ── */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2rem;
+    background: #1A1710;
+    color: #FAF6EE;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, background 0.2s ease;
+    box-shadow: 0 4px 16px rgba(26,23,16,0.18), 0 1px 4px rgba(26,23,16,0.12);
+  }
+  .btn-primary:hover {
+    background: #D64000;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(214,64,0,0.28), 0 2px 8px rgba(214,64,0,0.18);
+  }
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2rem;
+    border: 1.5px solid currentColor;
+    color: #FAF6EE;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease;
+  }
+  .btn-outline:hover {
+    background: rgba(250,246,238,0.15);
+    transform: translateY(-2px);
+  }
+  .btn-outline:active { transform: translateY(0); }
+
+  /* ── Cards ── */
+  .feature-card {
+    background: #FAF6EE;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    box-shadow:
+      0 2px 8px rgba(26,23,16,0.06),
+      0 1px 3px rgba(26,23,16,0.04);
+  }
+  .feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow:
+      0 16px 48px rgba(26,23,16,0.12),
+      0 4px 16px rgba(26,23,16,0.08),
+      0 1px 4px rgba(214,64,0,0.08);
+  }
+  .feature-card img {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .feature-card:hover img {
+    transform: scale(1.04);
+  }
+
+  /* ── Service pills ── */
+  .service-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(26,23,16,0.12);
+    font-size: 0.85rem;
+    color: #1A1710;
+    background: transparent;
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: default;
+  }
+  .service-tag:hover {
+    border-color: #D64000;
+    background: rgba(214,64,0,0.05);
+    color: #D64000;
+    transform: translateY(-2px);
+  }
+
+  /* ── Pricing card ── */
+  .pricing-card {
+    border: 1px solid rgba(26,23,16,0.1);
+    background: #FAF6EE;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+  }
+  .pricing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(26,23,16,0.1), 0 4px 12px rgba(26,23,16,0.06);
+  }
+
+  /* ── Number badge ── */
+  .num-badge {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    color: #D64000;
+    border: 1.5px solid #D64000;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ── Section divider ── */
+  .divider {
+    width: 48px;
+    height: 2px;
+    background: #D64000;
+  }
+
+  /* ── Mobile menu ── */
+  #mobile-menu { display: none; }
+  #mobile-menu.open { display: flex; }
+
+  /* ── Scroll animations ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════════ -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background: rgba(250,246,238,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid transparent;">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="flex items-center justify-between h-16">
+
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-3 group" style="text-decoration: none;">
+        <div style="width:36px; height:36px; background:#D64000; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);" class="group-hover:[transform:scale(1.08)]">
+          <span style="color:#FAF6EE; font-family:'Noto Serif TC',serif; font-weight:900; font-size:1rem; line-height:1;">冬</span>
+        </div>
+        <div>
+          <div style="font-family:'Noto Serif TC',serif; font-weight:700; font-size:0.95rem; color:#1A1710; line-height:1.2; letter-spacing:-0.01em;">冬勝診所</div>
+          <div class="label-caps" style="color:#7A7568; font-size:0.58rem;">Dong Sheng Clinic</div>
+        </div>
+      </a>
+
+      <!-- Desktop nav -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#services" class="nav-link">診療項目</a>
+        <a href="#about" class="nav-link">關於我們</a>
+        <a href="#doctor" class="nav-link">醫師介紹</a>
+        <a href="#pricing" class="nav-link">收費標準</a>
+        <a href="#contact" class="nav-link">聯絡我們</a>
+        <a href="tel:07-727-8392" class="btn-primary" style="padding:0.6rem 1.25rem; font-size:0.72rem;">
+          <span>07-727-8392</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.62 2 2 0 0 1 3.6 1.44h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.83-1.83a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button id="menu-btn" class="md:hidden" style="padding:0.5rem; color:#1A1710; background:none; border:none; cursor:pointer;" aria-label="開啟選單">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="flex-col md:hidden" style="background:rgba(250,246,238,0.98); border-top:1px solid rgba(26,23,16,0.08); padding:1rem 1.5rem 1.5rem;">
+    <a href="#services" class="nav-link" style="padding:0.75rem 0; display:block; border-bottom:1px solid rgba(26,23,16,0.06);">診療項目</a>
+    <a href="#about" class="nav-link" style="padding:0.75rem 0; display:block; border-bottom:1px solid rgba(26,23,16,0.06);">關於我們</a>
+    <a href="#doctor" class="nav-link" style="padding:0.75rem 0; display:block; border-bottom:1px solid rgba(26,23,16,0.06);">醫師介紹</a>
+    <a href="#pricing" class="nav-link" style="padding:0.75rem 0; display:block; border-bottom:1px solid rgba(26,23,16,0.06);">收費標準</a>
+    <a href="#contact" class="nav-link" style="padding:0.75rem 0; display:block;">聯絡我們</a>
+    <a href="tel:07-727-8392" class="btn-primary" style="margin-top:1rem; justify-content:center;">07-727-8392</a>
+  </div>
+</nav>
+
+
+<!-- ════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
+<section class="grain hero-bg relative min-h-screen flex flex-col justify-end" style="padding-top:4rem;">
+
+  <!-- Top strip -->
+  <div class="absolute top-16 left-0 right-0 px-6 lg:px-10 pt-8 flex justify-between items-start z-10">
+    <span class="label-caps" style="color:#7A7568;">身心精神科診所</span>
+    <span class="label-caps" style="color:#7A7568;">高雄市 · 苓雅區</span>
+  </div>
+
+  <!-- Hero content -->
+  <div class="relative z-10 max-w-7xl mx-auto w-full px-6 lg:px-10 pb-16 lg:pb-24">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-end">
+
+      <!-- Left: headline -->
+      <div>
+        <p class="label-caps mb-6" style="color:#D64000;">Dong Sheng Clinic · Est. 2020</p>
+        <h1 class="display-xl" style="font-size: clamp(4.5rem, 14vw, 11rem); color:#1A1710; margin-bottom:1.5rem;">
+          冬勝<br>診所
+        </h1>
+        <p style="font-family:'Inter',sans-serif; font-size:clamp(0.85rem, 1.5vw, 1rem); font-weight:300; letter-spacing:0.18em; text-transform:uppercase; color:#7A7568; margin-bottom:2.5rem;">
+          Dong Sheng Clinic · Kaohsiung
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#contact" class="btn-primary">預約掛號</a>
+          <a href="#services" class="btn-outline" style="color:#1A1710; border-color:rgba(26,23,16,0.3);">
+            了解診療項目
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: tagline card -->
+      <div style="background:rgba(26,23,16,0.82); backdrop-filter:blur(8px); padding:2.5rem; position:relative; z-index:2;">
+        <p class="label-caps" style="color:#D64000; margin-bottom:1.25rem;">我們的理念</p>
+        <blockquote style="font-family:'Noto Serif TC',serif; font-size:1.25rem; font-weight:700; color:#FAF6EE; line-height:1.55; margin-bottom:1.5rem; letter-spacing:-0.01em;">
+          「即使是一次的就醫，也將成為一生的印記。」
+        </blockquote>
+        <p style="font-size:0.85rem; color:rgba(250,246,238,0.65); line-height:1.7;">
+          冬勝診所關心您——我們承諾成為您與家人身心靈健康的忠實守護者。
+        </p>
+        <div class="divider" style="margin-top:1.5rem;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2" style="animation: bounce 2s infinite;">
+    <span class="label-caps" style="color:#7A7568; font-size:0.6rem;">向下滾動</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7A7568" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+
+  <style>
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+  </style>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     MISSION — 生命的印記
+════════════════════════════════════════════ -->
+<section id="about" style="padding: 6rem 0; background:#FAF6EE; overflow:hidden;">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+
+      <!-- Left label col -->
+      <div class="lg:col-span-3 fade-up">
+        <p class="label-caps" style="color:#D64000; margin-bottom:1.5rem;">關於我們</p>
+        <div class="divider" style="margin-bottom:2rem;"></div>
+        <p class="label-caps" style="color:#7A7568; line-height:2;">
+          About<br>Dong Sheng<br>Clinic
+        </p>
+      </div>
+
+      <!-- Center headline -->
+      <div class="lg:col-span-5 fade-up" style="transition-delay:0.1s;">
+        <h2 class="display-lg" style="font-size:clamp(2rem, 4vw, 3.25rem); color:#1A1710; margin-bottom:1.5rem;">
+          我們生命<br>的印記
+        </h2>
+        <p style="font-size:0.95rem; color:#7A7568; margin-bottom:0; font-style:italic; letter-spacing:0.05em;">Imprint of Our Life</p>
+      </div>
+
+      <!-- Right description -->
+      <div class="lg:col-span-4 fade-up" style="transition-delay:0.2s;">
+        <p style="font-size:0.9rem; color:#1A1710; line-height:1.85; margin-bottom:1.25rem;">
+          冬勝診所是一間具有專業教授院長級醫師親自看診的<strong>身心精神科診所</strong>，地點位於高雄市中正大順路口。
+        </p>
+        <p style="font-size:0.9rem; color:#1A1710; line-height:1.85;">
+          我們秉持「即使是一次的就醫，也將成為一生的印記」之理念，讓每一位到訪的患者，都能感受到我們誠摯的關懷與專業的醫療服務。
+        </p>
+      </div>
+    </div>
+
+    <!-- Intro story -->
+    <div style="margin-top:5rem; border-top:1px solid rgba(26,23,16,0.08); padding-top:4rem;" class="grid lg:grid-cols-3 gap-10">
+
+      <div class="fade-up">
+        <div style="display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.25rem;">
+          <span class="num-badge">01</span>
+          <h3 style="font-family:'Noto Serif TC',serif; font-weight:700; font-size:1rem; color:#1A1710; line-height:1.5;">以身心科的溫度診療</h3>
+        </div>
+        <p style="font-size:0.85rem; color:#7A7568; line-height:1.85; padding-left:calc(28px + 1rem);">
+          即使說心病需要心藥醫，曾醫師堅持排除器質性疾病為優先的診療原則。診療過程會談親切且詳細，使看診民眾能夠安心地暢談。
+        </p>
+      </div>
+
+      <div class="fade-up" style="transition-delay:0.1s;">
+        <div style="display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.25rem;">
+          <span class="num-badge">02</span>
+          <h3 style="font-family:'Noto Serif TC',serif; font-weight:700; font-size:1rem; color:#1A1710; line-height:1.5;">口碑相傳的信任</h3>
+        </div>
+        <p style="font-size:0.85rem; color:#7A7568; line-height:1.85; padding-left:calc(28px + 1rem);">
+          各路病友間的口耳相傳是冬勝診所個案最主要的來源，一個報一個，親友殷殷的提醒，終於讓人鼓起勇氣來探索自己，成為一生的印記。
+        </p>
+      </div>
+
+      <div class="fade-up" style="transition-delay:0.2s;">
+        <div style="display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.25rem;">
+          <span class="num-badge">03</span>
+          <h3 style="font-family:'Noto Serif TC',serif; font-weight:700; font-size:1rem; color:#1A1710; line-height:1.5;">攜手共同面對</h3>
+        </div>
+        <p style="font-size:0.85rem; color:#7A7568; line-height:1.85; padding-left:calc(28px + 1rem);">
+          心靈的苦楚猶如身體的酸痛一般，有路徑、有來源，關鍵點在於我們醫病之間是否能夠攜手共同面對、一起承擔。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     VISUAL BREAK — Clinic photos
+════════════════════════════════════════════ -->
+<section style="background:#1A1710; overflow:hidden; position:relative;">
+  <div style="display:grid; grid-template-columns: repeat(4, 1fr); height:360px;">
+    <div style="overflow:hidden; position:relative;">
+      <img src="/DongShengClinic/static/img/scene0.jpg" alt="診療" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.75) saturate(0.9); transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'">
+      <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(26,23,16,0.5) 0%, transparent 60%);"></div>
+    </div>
+    <div style="overflow:hidden; position:relative;">
+      <img src="/DongShengClinic/static/img/scene1.jpg" alt="掛號" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.75) saturate(0.9); transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'">
+      <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(26,23,16,0.5) 0%, transparent 60%);"></div>
+    </div>
+    <div style="overflow:hidden; position:relative;">
+      <img src="/DongShengClinic/static/img/scene2.jpg" alt="針灸" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.75) saturate(0.9); transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'">
+      <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(26,23,16,0.5) 0%, transparent 60%);"></div>
+    </div>
+    <div style="overflow:hidden; position:relative;">
+      <img src="/DongShengClinic/static/img/scene3.jpg" alt="關懷" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.75) saturate(0.9); transition: transform 0.6s ease;" onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'">
+      <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(26,23,16,0.5) 0%, transparent 60%);"></div>
+    </div>
+  </div>
+  <!-- Overlay text -->
+  <div style="position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); text-align:center; z-index:10;">
+    <p class="label-caps" style="color:rgba(250,246,238,0.6);">冬勝診所 · 醫療現場</p>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     SERVICES
+════════════════════════════════════════════ -->
+<section id="services" style="padding:6rem 0; background:#FAF6EE;">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+    <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-12">
+      <div class="lg:col-span-4 fade-up">
+        <p class="label-caps" style="color:#D64000; margin-bottom:1rem;">診療項目</p>
+        <div class="divider" style="margin-bottom:1.5rem;"></div>
+        <h2 class="display-lg" style="font-size:clamp(2rem, 4vw, 3rem); color:#1A1710;">
+          全面的<br>身心醫療
+        </h2>
+      </div>
+      <div class="lg:col-span-8 lg:pt-16 fade-up" style="transition-delay:0.1s;">
+        <p style="font-size:0.9rem; color:#7A7568; line-height:1.85; max-width:55ch;">
+          主要診療的項目包含失眠、疼痛、憂鬱、焦慮、壓力、恐慌、強迫症等疾患。在兒童青少年方面包含妥瑞氏症、自閉症、注意力不足、過動兒等諮詢與治療。在疼痛的鑒別與治療方面我們導入中西合併的辨證原則。
+        </p>
+      </div>
+    </div>
+
+    <!-- Service categories -->
+    <div class="grid lg:grid-cols-3 gap-8 mb-12">
+
+      <!-- Category 1 -->
+      <div class="fade-up" style="border:1px solid rgba(26,23,16,0.08); padding:2rem;">
+        <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.5rem; padding-bottom:1.25rem; border-bottom:1px solid rgba(26,23,16,0.08);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D64000" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <h3 style="font-family:'Noto Serif TC',serif; font-weight:700; font-size:1rem; color:#1A1710;">情緒與精神健康</h3>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.6rem;">
+          <span class="service-tag">憂鬱症</span>
+          <span class="service-tag">焦慮症</span>
+          <span class="service-tag">恐慌症</span>
+          <span class="service-tag">強迫症</span>
+          <span class="service-tag">壓力與適應障礙</span>
+          <span class="service-tag">情感性疾患</span>
+          <span class="service-tag">思覺失調</span>
+        </div>
+      </div>
+
+      <!-- Category 2 -->
+      <div class="fade-up" style="border:1px solid rgba(26,23,16,0.08); padding:2rem; transition-delay:0.1s;">
+        <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.5rem; padding-bottom:1.25rem; border-bottom:1px solid rgba(26,23,16,0.08);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D64000" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          <h3 style="font-family:'Noto Serif TC',serif; font-weight:700; font-size:1rem; color:#1A1710;">身體與自律神經</h3>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.6rem;">
+          <span class="service-tag">失眠</span>
+          <span class="service-tag">慢性疼痛</span>
+          <span class="service-tag">自律神經失調</span>
+          <span class="service-tag">頭痛</span>
+          <span class="service-tag">心悸</span>
+          <span class="service-tag">腸胃問題</span>
+          <span class="service-tag">疲勞與精神官能症</span>
+        </div>
+      </div>
+
+      <!-- Category 3 -->
+      <div class="fade-up" style="border:1px solid rgba(26,23,16,0.08); padding:2rem; transition-delay:0.2s;">
+        <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.5rem; padding-bottom:1.25rem; border-bottom:1px solid rgba(26,23,16,0.08);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D64000" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <h3 style="font-family:'Noto Serif TC',serif; font-weight:700; font-size:1rem; color:#1A1710;">特殊族群照護</h3>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.6rem;">
+          <span class="service-tag">兒童：妥瑞氏症・自閉症・過動症</span>
+          <span class="service-tag">老年：失智・認知功能障礙</span>
+          <span class="service-tag">女性：產後憂鬱・更年期</span>
+          <span class="service-tag">成癮：酒精・網路・物質</span>
+          <span class="service-tag">心理治療（博士級心理師）</span>
+          <span class="service-tag">針灸治療（20年經驗）</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div style="border-top:1px solid rgba(26,23,16,0.08); padding-top:2.5rem; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1.5rem;" class="fade-up">
+      <p style="font-size:0.85rem; color:#7A7568; max-width:50ch;">如有任何身心健康方面的困擾，歡迎致電或親自來診，我們將竭誠為您提供專業評估與建議。</p>
+      <a href="#contact" class="btn-primary">立即預約掛號</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     DOCTOR — Red section
+════════════════════════════════════════════ -->
+<section id="doctor" class="grain red-section relative" style="padding:6rem 0; overflow:hidden;">
+
+  <!-- Large background text -->
+  <div style="position:absolute; right:-2rem; top:50%; transform:translateY(-50%); font-family:'Noto Serif TC',serif; font-weight:900; font-size:clamp(8rem,18vw,16rem); color:rgba(250,246,238,0.04); line-height:1; pointer-events:none; user-select:none; white-space:nowrap;">
+    曾冬勝
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+
+      <!-- Photo column -->
+      <div class="lg:col-span-4 fade-up">
+        <div style="position:relative; overflow:hidden;">
+          <img src="/DongShengClinic/static/img/test0.jpg" alt="曾冬勝醫師" style="width:100%; aspect-ratio:3/4; object-fit:cover; object-position:top; filter:grayscale(20%);">
+          <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(139,37,0,0.4) 0%, transparent 50%); mix-blend-mode:multiply;"></div>
+          <div style="position:absolute; bottom:1.5rem; left:1.5rem;">
+            <div class="label-caps" style="color:rgba(250,246,238,0.8); font-size:0.6rem;">院長</div>
+            <div style="font-family:'Noto Serif TC',serif; font-weight:700; font-size:1.25rem; color:#FAF6EE; letter-spacing:-0.01em;">曾冬勝 醫師</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bio column -->
+      <div class="lg:col-span-8 fade-up" style="transition-delay:0.15s;">
+        <p class="label-caps" style="color:rgba(250,246,238,0.5); margin-bottom:1.25rem;">醫師介紹</p>
+        <h2 class="display-lg" style="font-size:clamp(2rem, 4vw, 3.25rem); color:#FAF6EE; margin-bottom:2rem;">
+          教授級院長<br>親自診療
+        </h2>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; margin-bottom:2.5rem;">
+          <div style="border:1px solid rgba(250,246,238,0.15); padding:1.25rem;">
+            <p class="label-caps" style="color:rgba(250,246,238,0.45); font-size:0.6rem; margin-bottom:0.5rem;">學歷</p>
+            <p style="font-size:0.85rem; color:#FAF6EE; line-height:1.7;">國防醫學院醫學系<br>高雄醫學大學碩士、博士</p>
+          </div>
+          <div style="border:1px solid rgba(250,246,238,0.15); padding:1.25rem;">
+            <p class="label-caps" style="color:rgba(250,246,238,0.45); font-size:0.6rem; margin-bottom:0.5rem;">前職</p>
+            <p style="font-size:0.85rem; color:#FAF6EE; line-height:1.7;">三軍總醫院醫學中心<br>北投分院院長</p>
+          </div>
+          <div style="border:1px solid rgba(250,246,238,0.15); padding:1.25rem;">
+            <p class="label-caps" style="color:rgba(250,246,238,0.45); font-size:0.6rem; margin-bottom:0.5rem;">學術職務</p>
+            <p style="font-size:0.85rem; color:#FAF6EE; line-height:1.7;">台灣精神醫學會<br>理事・監事</p>
+          </div>
+          <div style="border:1px solid rgba(250,246,238,0.15); padding:1.25rem;">
+            <p class="label-caps" style="color:rgba(250,246,238,0.45); font-size:0.6rem; margin-bottom:0.5rem;">專長</p>
+            <p style="font-size:0.85rem; color:#FAF6EE; line-height:1.7;">針灸治療 20年+<br>精神暨心身醫學</p>
+          </div>
+        </div>
+
+        <!-- Doctor's message -->
+        <div style="border-left:3px solid rgba(250,246,238,0.35); padding-left:1.5rem; margin-bottom:2rem;">
+          <p style="font-size:0.9rem; color:rgba(250,246,238,0.8); line-height:1.85; font-style:italic;">
+            「若您或周遭親友有任何身心靈相關的問題、困擾，讓我們一起來面對它！冬勝診所祝您痛苦平息、身心靈健康。」
+          </p>
+          <p class="label-caps" style="color:rgba(250,246,238,0.45); margin-top:0.75rem; font-size:0.6rem;">— 曾冬勝 醫師</p>
+        </div>
+
+        <!-- Team note -->
+        <div style="background:rgba(250,246,238,0.08); padding:1.25rem; display:flex; gap:1rem; align-items:flex-start;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(250,246,238,0.6)" stroke-width="1.5" style="flex-shrink:0; margin-top:0.1rem;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <div>
+            <p class="label-caps" style="color:rgba(250,246,238,0.5); font-size:0.6rem; margin-bottom:0.4rem;">醫療團隊</p>
+            <p style="font-size:0.82rem; color:rgba(250,246,238,0.75); line-height:1.7;">曾在國軍高雄總醫院服務超過20年的專業護理人員，以及博士級臨床心理師，提供全方位身心照護。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     CLINIC SPIRIT
+════════════════════════════════════════════ -->
+<section style="padding:6rem 0; background:#1A1710; overflow:hidden; position:relative;">
+
+  <div style="position:absolute; top:0; left:0; right:0; bottom:0; background: radial-gradient(ellipse 50% 60% at 80% 50%, rgba(214,64,0,0.12) 0%, transparent 70%); pointer-events:none;"></div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
+    <div class="grid lg:grid-cols-12 items-center gap-12">
+
+      <div class="lg:col-span-7 fade-up">
+        <p class="label-caps" style="color:#D64000; margin-bottom:1.5rem;">診所精神</p>
+        <h2 class="display-lg" style="font-size:clamp(1.75rem, 3.5vw, 2.75rem); color:#FAF6EE; margin-bottom:2rem; line-height:1.2;">
+          以持續進步的態度<br>守護社區民眾的身心靈健康
+        </h2>
+        <p style="font-size:0.9rem; color:rgba(250,246,238,0.6); line-height:1.85; max-width:55ch; margin-bottom:1.5rem;">
+          冬勝診所將秉持關懷社區民眾的理念，以持續進步的態度精進我們的診療技術、掌握社會、家庭與個人互動的變因。依據精準醫療與全人的照顧為治療方向，協助案主及親友對診療有正確的觀念，提升抗壓力、增加免疫力、平衡自律神經的功能，進而重新恢復健康。
+        </p>
+      </div>
+
+      <div class="lg:col-span-5 fade-up" style="transition-delay:0.15s;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(250,246,238,0.06);">
+          <div style="background:#1A1710; padding:2rem; text-align:center; border-bottom:1px solid rgba(250,246,238,0.06);">
+            <div style="font-family:'Inter',sans-serif; font-weight:700; font-size:2.5rem; color:#D64000; letter-spacing:-0.03em; line-height:1;">20+</div>
+            <div class="label-caps" style="color:rgba(250,246,238,0.45); margin-top:0.5rem; font-size:0.62rem;">年針灸經驗</div>
+          </div>
+          <div style="background:#1A1710; padding:2rem; text-align:center; border-bottom:1px solid rgba(250,246,238,0.06);">
+            <div style="font-family:'Inter',sans-serif; font-weight:700; font-size:2.5rem; color:#D64000; letter-spacing:-0.03em; line-height:1;">博士</div>
+            <div class="label-caps" style="color:rgba(250,246,238,0.45); margin-top:0.5rem; font-size:0.62rem;">級臨床心理師</div>
+          </div>
+          <div style="background:#1A1710; padding:2rem; text-align:center;">
+            <div style="font-family:'Inter',sans-serif; font-weight:700; font-size:2.5rem; color:#D64000; letter-spacing:-0.03em; line-height:1;">中西</div>
+            <div class="label-caps" style="color:rgba(250,246,238,0.45); margin-top:0.5rem; font-size:0.62rem;">合併診療方式</div>
+          </div>
+          <div style="background:#1A1710; padding:2rem; text-align:center;">
+            <div style="font-family:'Inter',sans-serif; font-weight:700; font-size:2.5rem; color:#D64000; letter-spacing:-0.03em; line-height:1;">全人</div>
+            <div class="label-caps" style="color:rgba(250,246,238,0.45); margin-top:0.5rem; font-size:0.62rem;">身心靈整合照護</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     PRICING
+════════════════════════════════════════════ -->
+<section id="pricing" style="padding:6rem 0; background:#FAF6EE;">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+
+    <div class="grid lg:grid-cols-12 gap-8 items-start mb-12">
+      <div class="lg:col-span-5 fade-up">
+        <p class="label-caps" style="color:#D64000; margin-bottom:1rem;">收費標準</p>
+        <div class="divider" style="margin-bottom:1.5rem;"></div>
+        <h2 class="display-lg" style="font-size:clamp(2rem, 4vw, 3rem); color:#1A1710;">
+          健保 · 自費<br>收費說明
+        </h2>
+      </div>
+      <div class="lg:col-span-7 lg:pt-16 fade-up" style="transition-delay:0.1s;">
+        <p style="font-size:0.9rem; color:#7A7568; line-height:1.85;">
+          冬勝診所配合全民健康保險，提供健保看診服務。特殊身分（榮民、低收入戶、重大傷病、65歲以上老人）享有優惠收費。自費看診亦歡迎洽詢。
+        </p>
+      </div>
+    </div>
+
+    <!-- Pricing cards -->
+    <div class="grid lg:grid-cols-3 gap-6 mb-8">
+
+      <div class="pricing-card fade-up" style="padding:2rem;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1.5rem; padding-bottom:1.25rem; border-bottom:1px solid rgba(26,23,16,0.08);">
+          <div>
+            <p class="label-caps" style="color:#D64000; font-size:0.6rem; margin-bottom:0.4rem;">優惠族群</p>
+            <h3 style="font-family:'Noto Serif TC',serif; font-weight:700; font-size:1.05rem; color:#1A1710;">掛號費</h3>
+          </div>
+          <div style="text-align:right;">
+            <span style="font-family:'Inter',sans-serif; font-weight:700; font-size:2rem; color:#1A1710; letter-spacing:-0.03em;">150</span>
+            <span style="font-size:0.75rem; color:#7A7568; display:block;">元</span>
+          </div>
+        </div>
+        <p style="font-size:0.82rem; color:#7A7568; line-height:1.7;">重大傷病、榮民、殘障患者、低收入戶、65歲以上老人</p>
+        <p style="font-size:0.72rem; color:#C4BFB5; margin-top:0.75rem;">依健保卡內的身分註記或紙本證明為準</p>
+      </div>
+
+      <div class="pricing-card fade-up" style="padding:2rem; transition-delay:0.1s; border-color:#D64000; position:relative; overflow:hidden;">
+        <div style="position:absolute; top:0; right:0; background:#D64000; padding:0.3rem 0.75rem;">
+          <span class="label-caps" style="color:#FAF6EE; font-size:0.58rem;">健保</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1.5rem; padding-bottom:1.25rem; border-bottom:1px solid rgba(214,64,0,0.15);">
+          <div>
+            <p class="label-caps" style="color:#D64000; font-size:0.6rem; margin-bottom:0.4rem;">一般族群</p>
+            <h3 style="font-family:'Noto Serif TC',serif; font-weight:700; font-size:1.05rem; color:#1A1710;">基本部分負擔</h3>
+          </div>
+          <div style="text-align:right;">
+            <span style="font-family:'Inter',sans-serif; font-weight:700; font-size:2rem; color:#D64000; letter-spacing:-0.03em;">50</span>
+            <span style="font-size:0.75rem; color:#7A7568; display:block;">元起</span>
+          </div>
+        </div>
+        <p style="font-size:0.82rem; color:#7A7568; line-height:1.7;">重大傷病、榮民、低收入戶享有減免</p>
+        <p style="font-size:0.72rem; color:#C4BFB5; margin-top:0.75rem;">依健保規定收費</p>
+      </div>
+
+      <div class="pricing-card fade-up" style="padding:2rem; transition-delay:0.2s;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1.5rem; padding-bottom:1.25rem; border-bottom:1px solid rgba(26,23,16,0.08);">
+          <div>
+            <p class="label-caps" style="color:#D64000; font-size:0.6rem; margin-bottom:0.4rem;">藥品費用</p>
+            <h3 style="font-family:'Noto Serif TC',serif; font-weight:700; font-size:1.05rem; color:#1A1710;">藥品部分負擔</h3>
+          </div>
+          <div style="text-align:right;">
+            <span style="font-family:'Inter',sans-serif; font-weight:700; font-size:2rem; color:#1A1710; letter-spacing:-0.03em;">0–200</span>
+            <span style="font-size:0.75rem; color:#7A7568; display:block;">元</span>
+          </div>
+        </div>
+        <p style="font-size:0.82rem; color:#7A7568; line-height:1.7;">健保藥費：每超過100元，自付20元；超過200元，自付40元，以此類推。</p>
+        <p style="font-size:0.72rem; color:#C4BFB5; margin-top:0.75rem;">自付上限200元</p>
+      </div>
+    </div>
+
+    <!-- Self-pay note -->
+    <div style="background:rgba(26,23,16,0.04); border-left:3px solid #D64000; padding:1.5rem 2rem; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem;" class="fade-up">
+      <div>
+        <p class="label-caps" style="color:#D64000; font-size:0.62rem; margin-bottom:0.4rem;">自費看診</p>
+        <p style="font-size:0.85rem; color:#1A1710; line-height:1.6;">掛號費 <strong>NT$150</strong> ＋ 醫師診察費 <strong>NT$400</strong>（不含治療費及諮商費）＋ 藥費</p>
+      </div>
+      <a href="tel:07-727-8392" class="btn-primary" style="font-size:0.72rem; padding:0.65rem 1.25rem;">諮詢費用細節</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     CONTACT
+════════════════════════════════════════════ -->
+<section id="contact" style="padding:6rem 0; background:#1A1710; position:relative; overflow:hidden;">
+
+  <div style="position:absolute; bottom:0; right:0; width:40%; height:100%; background:radial-gradient(ellipse 100% 100% at 100% 100%, rgba(214,64,0,0.15) 0%, transparent 70%); pointer-events:none;"></div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 relative z-10">
+
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
+
+      <!-- Left: info -->
+      <div class="lg:col-span-5 fade-up">
+        <p class="label-caps" style="color:#D64000; margin-bottom:1.25rem;">聯絡我們</p>
+        <div class="divider" style="margin-bottom:2rem;"></div>
+        <h2 class="display-lg" style="font-size:clamp(2rem, 4vw, 3rem); color:#FAF6EE; margin-bottom:2.5rem;">
+          冬勝診所<br>歡迎您
+        </h2>
+
+        <!-- Contact details -->
+        <div style="display:flex; flex-direction:column; gap:1.5rem; margin-bottom:2.5rem;">
+
+          <div style="display:flex; gap:1rem; align-items:flex-start;">
+            <div style="width:36px; height:36px; border:1px solid rgba(250,246,238,0.15); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D64000" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <p class="label-caps" style="color:rgba(250,246,238,0.4); font-size:0.58rem; margin-bottom:0.3rem;">地址</p>
+              <p style="font-size:0.85rem; color:#FAF6EE; line-height:1.7;">802 台灣高雄市苓雅區<br>中正一路（大順路口）</p>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:1rem; align-items:flex-start;">
+            <div style="width:36px; height:36px; border:1px solid rgba(250,246,238,0.15); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D64000" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.62 2 2 0 0 1 3.6 1.44h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.83-1.83a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <p class="label-caps" style="color:rgba(250,246,238,0.4); font-size:0.58rem; margin-bottom:0.3rem;">電話</p>
+              <a href="tel:07-727-8392" style="font-size:1.1rem; color:#FAF6EE; font-family:'Inter',sans-serif; font-weight:600; text-decoration:none; letter-spacing:0.02em; transition:color 0.2s;" onmouseover="this.style.color='#D64000'" onmouseout="this.style.color='#FAF6EE'">07-727-8392</a>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:1rem; align-items:flex-start;">
+            <div style="width:36px; height:36px; border:1px solid rgba(250,246,238,0.15); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D64000" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <div>
+              <p class="label-caps" style="color:rgba(250,246,238,0.4); font-size:0.58rem; margin-bottom:0.3rem;">交通</p>
+              <p style="font-size:0.82rem; color:rgba(250,246,238,0.7); line-height:1.7;">
+                捷運橘線 文化中心/五塊厝站（中間）<br>
+                輕軌 凱旋公園站<br>
+                50號公車 大順三路口站
+              </p>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:1rem; align-items:flex-start;">
+            <div style="width:36px; height:36px; border:1px solid rgba(250,246,238,0.15); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D64000" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </div>
+            <div>
+              <p class="label-caps" style="color:rgba(250,246,238,0.4); font-size:0.58rem; margin-bottom:0.3rem;">社群媒體</p>
+              <div style="display:flex; gap:1rem; margin-top:0.25rem;">
+                <a href="https://www.facebook.com/dongshengclinic" target="_blank" rel="noopener" style="color:rgba(250,246,238,0.7); font-size:0.82rem; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#D64000'" onmouseout="this.style.color='rgba(250,246,238,0.7)'">Facebook</a>
+                <span style="color:rgba(250,246,238,0.2);">·</span>
+                <a href="https://line.me/ti/p/@LC5jR-b6F-" target="_blank" rel="noopener" style="color:rgba(250,246,238,0.7); font-size:0.82rem; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#D64000'" onmouseout="this.style.color='rgba(250,246,238,0.7)'">LINE</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Line ID badge -->
+        <div style="background:rgba(250,246,238,0.05); border:1px solid rgba(250,246,238,0.1); padding:1rem 1.25rem; display:inline-flex; gap:0.75rem; align-items:center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#4CAF50" style="flex-shrink:0;"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+          <div>
+            <p class="label-caps" style="color:rgba(250,246,238,0.4); font-size:0.58rem;">LINE ID</p>
+            <p style="font-size:0.82rem; color:#FAF6EE; font-family:'Inter',sans-serif; letter-spacing:0.02em;">@LC5jR-b6F-</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: map placeholder + opening hours -->
+      <div class="lg:col-span-7 fade-up" style="transition-delay:0.15s;">
+
+        <!-- Map embed -->
+        <div style="width:100%; height:300px; background:rgba(250,246,238,0.04); border:1px solid rgba(250,246,238,0.1); overflow:hidden; margin-bottom:2rem; position:relative;">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3681.4!2d120.315!3d22.625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e04e6b3e3b01f%3A0x0!2z5p2x5Y2X6K2w5omA!5e0!3m2!1szh-TW!2stw!4v1700000000000"
+            width="100%" height="100%"
+            style="border:0; filter:grayscale(80%) invert(10%);"
+            allowfullscreen=""
+            loading="lazy">
+          </iframe>
+          <!-- Map overlay for dark treatment -->
+          <div style="position:absolute; inset:0; background:rgba(26,23,16,0.2); pointer-events:none;"></div>
+        </div>
+
+        <!-- Opening hours -->
+        <div style="background:rgba(250,246,238,0.04); border:1px solid rgba(250,246,238,0.08); padding:2rem;">
+          <p class="label-caps" style="color:#D64000; margin-bottom:1.5rem;">診療時間</p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0; border-bottom:1px solid rgba(250,246,238,0.06);">
+              <span style="font-size:0.82rem; color:rgba(250,246,238,0.6);">週一至週五</span>
+              <span style="font-size:0.82rem; color:#FAF6EE; font-family:'Inter',sans-serif;">請來電確認</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0; border-bottom:1px solid rgba(250,246,238,0.06);">
+              <span style="font-size:0.82rem; color:rgba(250,246,238,0.6);">週六</span>
+              <span style="font-size:0.82rem; color:#FAF6EE; font-family:'Inter',sans-serif;">請來電確認</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0;">
+              <span style="font-size:0.82rem; color:rgba(250,246,238,0.6);">週日</span>
+              <span style="font-size:0.82rem; color:rgba(250,246,238,0.4); font-family:'Inter',sans-serif;">休診</span>
+            </div>
+          </div>
+          <div style="margin-top:1.5rem; padding-top:1.25rem; border-top:1px solid rgba(250,246,238,0.06);">
+            <p style="font-size:0.78rem; color:rgba(250,246,238,0.45); line-height:1.6;">
+              ※ 確切診療時間請來電或參考 Facebook 頁面公告，如遇假日或特殊情況可能調整。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer style="background:#111009; padding:3rem 0 2rem; border-top:1px solid rgba(250,246,238,0.06);">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid lg:grid-cols-4 gap-8 mb-8">
+
+      <!-- Brand -->
+      <div class="lg:col-span-2">
+        <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1.25rem;">
+          <div style="width:36px; height:36px; background:#D64000; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+            <span style="color:#FAF6EE; font-family:'Noto Serif TC',serif; font-weight:900; font-size:1rem;">冬</span>
+          </div>
+          <div>
+            <div style="font-family:'Noto Serif TC',serif; font-weight:700; font-size:0.95rem; color:#FAF6EE; letter-spacing:-0.01em;">冬勝診所</div>
+            <div class="label-caps" style="color:rgba(250,246,238,0.3); font-size:0.58rem;">Dong Sheng Clinic</div>
+          </div>
+        </div>
+        <p style="font-size:0.8rem; color:rgba(250,246,238,0.4); line-height:1.8; max-width:30ch;">
+          冬勝診所關心您——誓願成為社區民眾身心靈健康的守護者。
+        </p>
+      </div>
+
+      <!-- Quick links -->
+      <div>
+        <p class="label-caps" style="color:rgba(250,246,238,0.3); margin-bottom:1rem;">快速連結</p>
+        <div style="display:flex; flex-direction:column; gap:0.6rem;">
+          <a href="#services" class="nav-link" style="color:rgba(250,246,238,0.55); font-size:0.8rem;">診療項目</a>
+          <a href="#about" class="nav-link" style="color:rgba(250,246,238,0.55); font-size:0.8rem;">關於我們</a>
+          <a href="#doctor" class="nav-link" style="color:rgba(250,246,238,0.55); font-size:0.8rem;">醫師介紹</a>
+          <a href="#pricing" class="nav-link" style="color:rgba(250,246,238,0.55); font-size:0.8rem;">收費標準</a>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <p class="label-caps" style="color:rgba(250,246,238,0.3); margin-bottom:1rem;">聯絡資訊</p>
+        <div style="display:flex; flex-direction:column; gap:0.6rem;">
+          <a href="tel:07-727-8392" style="color:rgba(250,246,238,0.55); font-size:0.8rem; text-decoration:none; font-family:'Inter',sans-serif; transition:color 0.2s;" onmouseover="this.style.color='#D64000'" onmouseout="this.style.color='rgba(250,246,238,0.55)'">07-727-8392</a>
+          <a href="https://www.facebook.com/dongshengclinic" target="_blank" rel="noopener" style="color:rgba(250,246,238,0.55); font-size:0.8rem; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#D64000'" onmouseout="this.style.color='rgba(250,246,238,0.55)'">Facebook</a>
+          <a href="https://line.me/ti/p/@LC5jR-b6F-" target="_blank" rel="noopener" style="color:rgba(250,246,238,0.55); font-size:0.8rem; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#D64000'" onmouseout="this.style.color='rgba(250,246,238,0.55)'">LINE @LC5jR-b6F-</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div style="border-top:1px solid rgba(250,246,238,0.06); padding-top:1.5rem; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:0.75rem;">
+      <p style="font-size:0.72rem; color:rgba(250,246,238,0.25);">© 2020–2026 冬勝診所 Dong Sheng Clinic. All rights reserved.</p>
+      <p style="font-size:0.72rem; color:rgba(250,246,238,0.25);">802 高雄市苓雅區</p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ════════════════════════════════════════════
+     JS: Nav scroll, mobile menu, scroll animations
+════════════════════════════════════════════ -->
+<script>
+  // Nav scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      navbar.style.borderBottomColor = 'rgba(26,23,16,0.1)';
+      navbar.style.boxShadow = '0 4px 24px rgba(26,23,16,0.08)';
+    } else {
+      navbar.style.borderBottomColor = 'transparent';
+      navbar.style.boxShadow = 'none';
+    }
+  });
+
+  // Mobile menu
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
+
+  // Smooth anchor scrolling (offset for fixed nav)
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      const offset = 72;
+      window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+    });
+  });
+
+  // Scroll-triggered fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
