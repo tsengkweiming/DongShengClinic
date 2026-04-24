@@ -47,16 +47,16 @@
 <nav id="navbar" style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(250,246,238,.93);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:all 0.3s;">
   <div style="max-width:80rem;margin:0 auto;padding:0 2.5rem;">
     <div style="display:flex;align-items:center;justify-content:space-between;height:4rem;">
-      <a href="./" style="display:flex;align-items:center;gap:.75rem;text-decoration:none;">
-        <div style="width:36px;height:36px;background:#D64000;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <span style="color:#FAF6EE;font-family:'Noto Serif TC',serif;font-weight:900;font-size:1rem;">冬</span>
+      <a href="#" class="flex items-center gap-3 group" style="text-decoration: none;">
+        <div style="width:36px; height:36px; background:#D64000; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1); "class="group-hover:[transform:scale(1.08)]">
+          <img src="../common/clinic_assets/dong.svg" alt="冬 Icon" style="width:24px; height:24px; filter: brightness(0) invert(1); object-fit:contain;"/>
         </div>
-        <div>
-          <div style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:.95rem;color:#1A1710;line-height:1.2;">冬勝診所</div>
-          <div class="label-caps" style="color:#7A7568;font-size:.58rem;">Dong Sheng Clinic</div>
+        <div> 
+          <img src="../common/clinic_assets/dongsheng.svg" alt="冬勝診所" style="height:28px; width:auto;"/>
+          <div class="label-caps" style="color:#7A7568; font-size:0.56rem;">Dong Sheng Clinic</div>
         </div>
       </a>
-      <div style="display:none;gap:2rem;" class="md-flex" id="desktop-nav">
+      <div style="display:none; gap:2rem; align-items: center;" class="md-flex" id="desktop-nav">
         <a href="./#services" class="nav-link">診療項目</a>
         <a href="./#about" class="nav-link">關於我們</a>
         <a href="./#doctor" class="nav-link">醫師介紹</a>
