@@ -1,0 +1,17 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/"
+  to = "/src/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog.html"
+  to = "/src/blog.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/:post"
+  to = "/src/blog/:post"
+  status = 200
