@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>頭痛 — 冬勝診所</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Sans+TC:wght@300;400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  *,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth}body{background:#FAF6EE;color:#1A1710;font-family:'Noto Sans TC','Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .label-caps{font-family:'Inter',sans-serif;font-weight:500;letter-spacing:.25em;text-transform:uppercase;font-size:.7rem}
+  .nav-link{font-family:'Inter',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#1A1710;text-decoration:none;position:relative;transition:color .2s}
+  .nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:#D64000;transition:width .25s cubic-bezier(.4,0,.2,1)}
+  .nav-link:hover{color:#D64000}.nav-link:hover::after{width:100%}
+  .btn-primary{display:inline-flex;align-items:center;gap:.5rem;padding:.875rem 2rem;background:#1A1710;color:#FAF6EE;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s,background .2s;box-shadow:0 4px 16px rgba(26,23,16,.18)}
+  .btn-primary:hover{background:#D64000;transform:translateY(-2px);box-shadow:0 8px 24px rgba(214,64,0,.28)}
+  .article-body{font-size:1rem;line-height:1.9;color:#1A1710}
+  .article-body p{margin-bottom:1.4rem}
+  .article-body h2{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.2rem;color:#1A1710;margin:2rem 0 .75rem;letter-spacing:-.01em}
+  .article-body blockquote{border-left:3px solid #D64000;padding-left:1.25rem;margin:1.5rem 0;color:#7A7568;font-style:italic}
+  #mobile-menu{display:none}#mobile-menu.open{display:flex}
+</style>
+</head>
+<body>
+<nav id="navbar" style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(250,246,238,.93);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:all .3s;">
+  <div style="max-width:80rem;margin:0 auto;padding:0 2.5rem;">
+    <div style="display:flex;align-items:center;justify-content:space-between;height:4rem;">
+      <a href="../" style="display:flex;align-items:center;gap:.75rem;text-decoration:none;">
+        <div style="width:36px;height:36px;background:#D64000;display:flex;align-items:center;justify-content:center;"><span style="color:#FAF6EE;font-family:'Noto Serif TC',serif;font-weight:900;font-size:1rem;">冬</span></div>
+        <div><div style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:.95rem;color:#1A1710;line-height:1.2;">冬勝診所</div><div class="label-caps" style="color:#7A7568;font-size:.58rem;">Dong Sheng Clinic</div></div>
+      </a>
+      <div style="display:none;gap:2rem;align-items:center;" id="desktop-nav">
+        <a href="../#services" class="nav-link">診療項目</a>
+        <a href="../#about" class="nav-link">關於我們</a>
+        <a href="../#doctor" class="nav-link">醫師介紹</a>
+        <a href="../blog.html" class="nav-link" style="color:#D64000;">部落格</a>
+        <a href="../#contact" class="nav-link">聯絡我們</a>
+        <a href="tel:07-727-8392" class="btn-primary" style="padding:.6rem 1.25rem;font-size:.72rem;">07-727-8392</a>
+      </div>
+      <button id="menu-btn" style="padding:.5rem;background:none;border:none;cursor:pointer;color:#1A1710;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+  <div id="mobile-menu" style="flex-direction:column;background:rgba(250,246,238,.98);border-top:1px solid rgba(26,23,16,.08);padding:1rem 1.5rem 1.5rem;">
+    <a href="../#services" class="nav-link" style="padding:.75rem 0;display:block;border-bottom:1px solid rgba(26,23,16,.06);">診療項目</a>
+    <a href="../blog.html" class="nav-link" style="padding:.75rem 0;display:block;border-bottom:1px solid rgba(26,23,16,.06);color:#D64000;">部落格</a>
+    <a href="../#contact" class="nav-link" style="padding:.75rem 0;display:block;">聯絡我們</a>
+  </div>
+</nav>
+<style>@media(min-width:768px){#desktop-nav{display:flex!important;}#menu-btn{display:none;}}</style>
+
+<div style="padding-top:4rem;height:420px;position:relative;overflow:hidden;">
+  <img src="../../common/clinic_assets/blog_photo/blog_headache.jpg" alt="頭痛" style="width:100%;height:100%;object-fit:cover;filter:brightness(.7);">
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.7) 0%,rgba(26,23,16,.2) 60%,transparent 100%);"></div>
+  <div style="position:absolute;bottom:2.5rem;left:0;right:0;max-width:80rem;margin:0 auto;padding:0 2.5rem;">
+    <nav style="display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;">
+      <a href="../" style="color:rgba(250,246,238,.5);font-family:'Inter',sans-serif;font-size:.72rem;text-decoration:none;" onmouseover="this.style.color='#D64000'" onmouseout="this.style.color='rgba(250,246,238,.5)'">首頁</a>
+      <span style="color:rgba(250,246,238,.3);font-size:.7rem;">›</span>
+      <a href="../blog.html" style="color:rgba(250,246,238,.5);font-family:'Inter',sans-serif;font-size:.72rem;text-decoration:none;" onmouseover="this.style.color='#D64000'" onmouseout="this.style.color='rgba(250,246,238,.5)'">部落格</a>
+      <span style="color:rgba(250,246,238,.3);font-size:.7rem;">›</span>
+      <span style="color:rgba(250,246,238,.6);font-family:'Inter',sans-serif;font-size:.72rem;">頭痛</span>
+    </nav>
+    <h1 style="font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(1.75rem,4vw,3rem);color:#FAF6EE;line-height:1.15;letter-spacing:-.02em;">頭痛</h1>
+    <p style="font-family:'Inter',sans-serif;font-size:.78rem;color:rgba(250,246,238,.55);margin-top:.75rem;">2020年03月04日 · 曾冬勝 醫師</p>
+  </div>
+</div>
+
+<div style="max-width:80rem;margin:0 auto;padding:4rem 2.5rem;display:grid;gap:4rem;justify-content:center;" class="article-layout">
+<style>.article-layout{grid-template-columns:min(680px,100%);}@media(min-width:1024px){.article-layout{grid-template-columns:min(680px,100%) 280px;}}</style>
+  <article class="article-body">
+    
+<p>頭痛是個惱人的問題！我們常常聽到人家講頭痛，但是除了少數嚴重的疾病之外，大部分頭痛是找不到器質性病因，而頭痛跟我們身心科的關係非常密切，原因是頭痛裡面比例占最大的就是張力性頭痛（tension headache）；其次就是偏頭痛；再來就是叢集性頭痛。以上為原發性的頭痛，此類頭痛並不會有生命危險。</p>
+<h2>有生命危險的頭痛</h2>
+<p>有生命危險的頭痛一般都是具有器質性病因的！例如腦炎、腦膜炎這一類的引起的頭痛，常常合併會有發燒，病因是病毒或細菌等病媒感染所造成。</p>
+<p>再來呢就是腦瘤：腦瘤的頭痛常合併有其他神經學的病變、例如視覺模糊、複視、聽力或肢體的障礙。</p>
+<p>第三就是中風：腦血管中風引起的頭痛常合併有肢體偏癱，類似腦瘤的神經學症狀；而中風引起的原因是血管梗塞或出血，所以多半具有高血壓的病史。</p>
+<h2>原發性頭痛與身心科</h2>
+<p>張力性頭痛是最常見的頭痛類型，與肌肉緊張和壓力密切相關。在身心科，我們可以透過放鬆訓練、自律神經調節以及適當的藥物治療，有效改善這類頭痛。</p>
+<p>如果您有反覆頭痛的困擾，建議先排除器質性原因後，也可以來冬勝診所讓我們協助您找到根本原因。</p>
+
+    <div style="margin-top:3rem;border:1px solid rgba(26,23,16,.1);padding:2rem;background:#F5F0E6;">
+      <p class="label-caps" style="color:#D64000;margin-bottom:1rem;">冬勝診所</p>
+      <p style="font-size:.85rem;line-height:1.8;margin-bottom:.5rem;">📞 預約電話：<a href="tel:07-727-8392" style="color:#D64000;text-decoration:none;font-weight:600;">07-727-8392</a></p>
+      <a
+        href="https://maps.google.com/?q=冬勝診所"
+        target="_blank"
+        rel="noopener"
+        style="font-size:0.85rem; line-height:1.8; margin-bottom:1.25rem; text-decoration:none; transition:color 0.2s; display:block;"
+        onmouseover="this.style.color='#D64000'"
+        onmouseout="this.style.color=''"
+      >
+        📍 地址：802 台灣高雄市苓雅區中正一路472號（大順路口）
+      </a>
+      <a href="../#contact" class="btn-primary" style="font-size:.75rem;padding:.7rem 1.5rem;">預約掛號</a>
+    </div>
+    <div style="margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(26,23,16,.08);">
+      <a href="../blog.html" style="display:inline-flex;align-items:center;gap:.5rem;color:#7A7568;font-family:'Inter',sans-serif;font-size:.8rem;text-decoration:none;" onmouseover="this.style.color='#D64000'" onmouseout="this.style.color='#7A7568'">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>返回部落格
+      </a>
+    </div>
+  </article>
+  <aside style="display:none;" class="sidebar">
+    <div style="position:sticky;top:5.5rem;">
+      <p class="label-caps" style="color:#D64000;margin-bottom:1rem;">相關標籤</p>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem;"><span style="padding:.35rem .8rem;border:1px solid rgba(26,23,16,.12);font-size:.78rem;color:#7A7568;">頭痛</span><span style="padding:.35rem .8rem;border:1px solid rgba(26,23,16,.12);font-size:.78rem;color:#7A7568;">身心科</span></div>
+      <p class="label-caps" style="color:#D64000;margin-bottom:1rem;">其他文章</p>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <a href="heart-thremble.html" style="text-decoration:none;color:inherit;">
+          <p style="font-size:.82rem;color:#1A1710;font-family:'Noto Serif TC',serif;font-weight:700;line-height:1.4;margin-bottom:.25rem;">心悸也可以找身心科</p>
+          <p style="font-size:.72rem;color:#C4BFB5;">2019年12月17日</p>
+        </a>
+        <a href="throat-tight.html" style="text-decoration:none;color:inherit;">
+          <p style="font-size:.82rem;color:#1A1710;font-family:'Noto Serif TC',serif;font-weight:700;line-height:1.4;margin-bottom:.25rem;">喉嚨緊緊的該看哪一科？</p>
+          <p style="font-size:.72rem;color:#C4BFB5;">2020年02月17日</p>
+        </a></div>
+    </div>
+  </aside>
+<style>@media(min-width:1024px){.sidebar{display:block!important;}}</style>
+</div>
+
+<footer style="background:#111009;padding:2rem 0;border-top:1px solid rgba(250,246,238,.06);">
+  <div style="max-width:80rem;margin:0 auto;padding:0 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem;">
+    <p style="font-size:.72rem;color:rgba(250,246,238,.25);">© 2020–2026 冬勝診所 Dong Sheng Clinic</p>
+    <a href="../blog.html" style="font-size:.72rem;color:rgba(250,246,238,.35);text-decoration:none;display:flex;align-items:center;gap:.4rem;" onmouseover="this.style.color='#D64000'" onmouseout="this.style.color='rgba(250,246,238,.35)'">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>返回部落格
+    </a>
+  </div>
+</footer>
+<script>
+  const navbar=document.getElementById('navbar');
+  window.addEventListener('scroll',()=>{navbar.style.borderBottomColor=window.scrollY>60?'rgba(26,23,16,.1)':'transparent';navbar.style.boxShadow=window.scrollY>60?'0 4px 24px rgba(26,23,16,.08)':'none';});
+  document.getElementById('menu-btn').addEventListener('click',()=>document.getElementById('mobile-menu').classList.toggle('open'));
+</script>
+</body>
+</html>
