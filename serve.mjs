@@ -24,9 +24,20 @@ const MIME = {
   '.ttf': 'font/ttf',
 };
 
+// Mirror netlify.toml redirects for local dev
+const REWRITES = [
+  { from: /^\/$/, to: '/src/index.html' },
+  { from: /^\/blog\.html$/, to: '/src/blog.html' },
+  { from: /^\/blog\/(.+)$/, to: (m) => `/src/blog/${m[1]}` },
+  { from: /^\/admin(\/.*)?$/, to: '/src/admin/index.html' },
+];
+
 http.createServer((req, res) => {
   let urlPath = req.url.split('?')[0];
-  if (urlPath === '/') urlPath = '/index.html';
+  for (const rule of REWRITES) {
+    const m = urlPath.match(rule.from);
+    if (m) { urlPath = typeof rule.to === 'function' ? rule.to(m) : rule.to; break; }
+  }
 
   const filePath = path.join(__dirname, urlPath);
   const ext = path.extname(filePath).toLowerCase();
