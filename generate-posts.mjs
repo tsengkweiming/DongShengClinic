@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const OUT = 'd:/development/Web/websites/DongShengClinicNew/blog';
+const OUT = 'd:/development/Web/websites/src/blog';
 
 const posts = [
   {
@@ -346,7 +346,7 @@ function makePost(p) {
 <style>@media(min-width:768px){#desktop-nav{display:flex!important;}#menu-btn{display:none;}}<\/style>
 
 <div style="padding-top:4rem;height:420px;position:relative;overflow:hidden;">
-  <img src="../../DongShengClinic/static/img/${p.img}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;filter:brightness(.7);">
+  <img src="../../common/clinic_assets/blog_photo/${p.img}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;filter:brightness(.7);">
   <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.7) 0%,rgba(26,23,16,.2) 60%,transparent 100%);"><\/div>
   <div style="position:absolute;bottom:2.5rem;left:0;right:0;max-width:80rem;margin:0 auto;padding:0 2.5rem;">
     <nav style="display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;">
