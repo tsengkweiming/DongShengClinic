@@ -1,0 +1,29 @@
+backend:
+  name: git-gateway
+  branch: update/new_version
+
+locale: zh_Hant
+
+media_folder: "common/clinic_assets/blog_photo"
+public_folder: "/common/clinic_assets/blog_photo"
+
+collections:
+  - name: blog
+    label: 部落格文章
+    folder: content/blog
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - { label: 標題, name: title, widget: string }
+      - { label: 發布日期, name: date, widget: date, format: YYYY-MM-DD, dateFormat: YYYY/MM/DD, timeFormat: false }
+      - { label: 封面圖片（可選）, name: image, widget: image, required: false, hint: 建議尺寸 1200×630 }
+      - label: 標籤
+        name: tags
+        widget: list
+        required: false
+        hint: 每行一個，例如：失眠
+        default:
+          - 身心科
+      - { label: 文章內容, name: body, widget: markdown }

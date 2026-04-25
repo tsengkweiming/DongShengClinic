@@ -1,4 +1,5 @@
 [build]
+  command = "npm install && node build.mjs"
   publish = "."
 
 [[redirects]]
@@ -14,4 +15,14 @@
 [[redirects]]
   from = "/blog/:post"
   to = "/src/blog/:post"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/src/admin/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/src/admin/index.html"
   status = 200

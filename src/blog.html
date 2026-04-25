@@ -9,348 +9,285 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Sans+TC:wght@300;400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  *, *::before, *::after { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { background: #FAF6EE; color: #1A1710; font-family: 'Noto Sans TC','Inter',system-ui,sans-serif; -webkit-font-smoothing: antialiased; }
-
-  .label-caps { font-family:'Inter',sans-serif; font-weight:500; letter-spacing:0.25em; text-transform:uppercase; font-size:0.7rem; }
-  .divider { width:48px; height:2px; background:#D64000; }
-  .display-lg { font-family:'Noto Serif TC',serif; font-weight:700; letter-spacing:-0.02em; line-height:1.05; }
-
-  .nav-link { font-family:'Inter',sans-serif; font-size:0.8rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#1A1710; text-decoration:none; position:relative; transition:color 0.2s; }
-  .nav-link::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:1.5px; background:#D64000; transition:width 0.25s cubic-bezier(0.4,0,0.2,1); }
-  .nav-link:hover { color:#D64000; }
-  .nav-link:hover::after { width:100%; }
-
-  .btn-primary { display:inline-flex; align-items:center; gap:0.5rem; padding:0.875rem 2rem; background:#1A1710; color:#FAF6EE; font-family:'Inter',sans-serif; font-size:0.8rem; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; text-decoration:none; transition:transform 0.2s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.2s,background 0.2s; box-shadow:0 4px 16px rgba(26,23,16,.18); }
-  .btn-primary:hover { background:#D64000; transform:translateY(-2px); box-shadow:0 8px 24px rgba(214,64,0,.28); }
-  .btn-primary:active { transform:translateY(0); }
-
-  .post-card { background:#FAF6EE; overflow:hidden; cursor:pointer; transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.3s; box-shadow:0 2px 8px rgba(26,23,16,.06); text-decoration:none; display:block; color:inherit; }
-  .post-card:hover { transform:translateY(-6px); box-shadow:0 16px 48px rgba(26,23,16,.12),0 4px 16px rgba(26,23,16,.08); }
-  .post-card:hover .card-img { transform:scale(1.05); }
-  .card-img { transition:transform 0.5s cubic-bezier(0.4,0,0.2,1); width:100%; height:100%; object-fit:cover; }
-
-  .filter-btn { font-family:'Inter',sans-serif; font-size:0.72rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; padding:0.45rem 1rem; border:1px solid rgba(26,23,16,.15); background:transparent; color:#7A7568; cursor:pointer; transition:all 0.2s; }
-  .filter-btn:hover, .filter-btn.active { background:#D64000; border-color:#D64000; color:#FAF6EE; }
-
-  .fade-up { opacity:0; transform:translateY(20px); transition:opacity 0.55s ease,transform 0.55s cubic-bezier(0.4,0,0.2,1); }
-  .fade-up.visible { opacity:1; transform:translateY(0); }
-
-  #mobile-menu { display:none; }
-  #mobile-menu.open { display:flex; }
+  *,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth}body{background:#FAF6EE;color:#1A1710;font-family:'Noto Sans TC','Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .label-caps{font-family:'Inter',sans-serif;font-weight:500;letter-spacing:.25em;text-transform:uppercase;font-size:.7rem}
+  .nav-link{font-family:'Inter',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#1A1710;text-decoration:none;position:relative;transition:color .2s}
+  .nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:#D64000;transition:width .25s cubic-bezier(.4,0,.2,1)}
+  .nav-link:hover{color:#D64000}.nav-link:hover::after{width:100%}
+  .btn-primary{display:inline-flex;align-items:center;gap:.5rem;padding:.875rem 2rem;background:#1A1710;color:#FAF6EE;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s,background .2s;box-shadow:0 4px 16px rgba(26,23,16,.18)}
+  .btn-primary:hover{background:#D64000;transform:translateY(-2px);box-shadow:0 8px 24px rgba(214,64,0,.28)}
+  .post-card{background:#FAF6EE;overflow:hidden;cursor:pointer;transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;box-shadow:0 2px 8px rgba(26,23,16,.06);text-decoration:none;display:block;color:inherit}
+  .post-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(26,23,16,.12),0 4px 16px rgba(26,23,16,.08)}
+  .post-card:hover .card-img{transform:scale(1.05)}
+  .card-img{transition:transform .5s cubic-bezier(.4,0,.2,1);width:100%;height:100%;object-fit:cover}
+  .filter-btn{font-family:'Inter',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.45rem 1rem;border:1px solid rgba(26,23,16,.15);background:transparent;color:#7A7568;cursor:pointer;transition:all .2s}
+  .filter-btn:hover,.filter-btn.active{background:#D64000;border-color:#D64000;color:#FAF6EE}
+  .fade-up{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s cubic-bezier(.4,0,.2,1)}
+  .fade-up.visible{opacity:1;transform:translateY(0)}
+  #mobile-menu{display:none}#mobile-menu.open{display:flex}
 </style>
 </head>
 <body>
-
-<!-- NAV -->
-<nav id="navbar" style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(250,246,238,.93);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:all 0.3s;">
+<nav id="navbar" style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(250,246,238,.93);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:all .3s;">
   <div style="max-width:80rem;margin:0 auto;padding:0 2.5rem;">
     <div style="display:flex;align-items:center;justify-content:space-between;height:4rem;">
-      <a href="#" class="flex items-center gap-3 group" style="text-decoration: none;">
-        <div style="width:36px; height:36px; background:#D64000; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1); "class="group-hover:[transform:scale(1.08)]">
-          <img src="/common/clinic_assets/dong.svg" alt="冬 Icon" style="width:24px; height:24px; filter: brightness(0) invert(1); object-fit:contain;"/>
-        </div>
-        <div> 
-          <img src="/common/clinic_assets/dongsheng.svg" alt="冬勝診所" style="height:28px; width:auto;"/>
-          <div class="label-caps" style="color:#7A7568; font-size:0.56rem;">Dong Sheng Clinic</div>
-        </div>
+      <a href="/" style="display:flex;align-items:center;gap:.75rem;text-decoration:none;">
+        <div style="width:36px;height:36px;background:#D64000;display:flex;align-items:center;justify-content:center;"><span style="color:#FAF6EE;font-family:'Noto Serif TC',serif;font-weight:900;font-size:1rem;">冬</span></div>
+        <div><div style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:.95rem;color:#1A1710;line-height:1.2;">冬勝診所</div><div class="label-caps" style="color:#7A7568;font-size:.58rem;">Dong Sheng Clinic</div></div>
       </a>
-      <div style="display:none; gap:2rem; align-items: center;" class="md-flex" id="desktop-nav">
-        <a href="./#services" class="nav-link">診療項目</a>
-        <a href="./#about" class="nav-link">關於我們</a>
-        <a href="./#doctor" class="nav-link">醫師介紹</a>
-        <a href="./#pricing" class="nav-link">收費標準</a>
-        <a href="./blog.html" class="nav-link" style="color:#D64000;">部落格</a>
-        <a href="./#contact" class="nav-link">聯絡我們</a>
+      <div style="display:none;gap:2rem;align-items:center;" id="desktop-nav">
+        <a href="/#services" class="nav-link">診療項目</a>
+        <a href="/#about" class="nav-link">關於我們</a>
+        <a href="/#doctor" class="nav-link">醫師介紹</a>
+        <a href="/blog.html" class="nav-link" style="color:#D64000;">部落格</a>
+        <a href="/#contact" class="nav-link">聯絡我們</a>
         <a href="tel:07-727-8392" class="btn-primary" style="padding:.6rem 1.25rem;font-size:.72rem;">07-727-8392</a>
       </div>
-      <button id="menu-btn" style="padding:.5rem;background:none;border:none;cursor:pointer;color:#1A1710;">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
+      <button id="menu-btn" style="padding:.5rem;background:none;border:none;cursor:pointer;color:#1A1710;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
   <div id="mobile-menu" style="flex-direction:column;background:rgba(250,246,238,.98);border-top:1px solid rgba(26,23,16,.08);padding:1rem 1.5rem 1.5rem;">
-    <a href="./#services" class="nav-link" style="padding:.75rem 0;display:block;border-bottom:1px solid rgba(26,23,16,.06);">診療項目</a>
-    <a href="./#about" class="nav-link" style="padding:.75rem 0;display:block;border-bottom:1px solid rgba(26,23,16,.06);">關於我們</a>
-    <a href="./#doctor" class="nav-link" style="padding:.75rem 0;display:block;border-bottom:1px solid rgba(26,23,16,.06);">醫師介紹</a>
-    <a href="./#pricing" class="nav-link" style="padding:.75rem 0;display:block;border-bottom:1px solid rgba(26,23,16,.06);">收費標準</a>
-    <a href="./blog.html" class="nav-link" style="padding:.75rem 0;display:block;border-bottom:1px solid rgba(26,23,16,.06);color:#D64000;">部落格</a>
-    <a href="./#contact" class="nav-link" style="padding:.75rem 0;display:block;">聯絡我們</a>
-    <a href="tel:07-727-8392" class="btn-primary" style="margin-top:1rem;justify-content:center;">07-727-8392</a>
+    <a href="/#services" class="nav-link" style="padding:.75rem 0;display:block;border-bottom:1px solid rgba(26,23,16,.06);">診療項目</a>
+    <a href="/blog.html" class="nav-link" style="padding:.75rem 0;display:block;border-bottom:1px solid rgba(26,23,16,.06);color:#D64000;">部落格</a>
+    <a href="/#contact" class="nav-link" style="padding:.75rem 0;display:block;">聯絡我們</a>
   </div>
 </nav>
 <style>@media(min-width:768px){#desktop-nav{display:flex!important;}#menu-btn{display:none;}}</style>
 
-<!-- HERO -->
-<section style="padding-top:4rem;background:#1A1710;position:relative;overflow:hidden;">
-  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(214,64,0,.2) 0%,transparent 70%);pointer-events:none;"></div>
-  <div style="max-width:80rem;margin:0 auto;padding:5rem 2.5rem 4rem;position:relative;z-index:1;">
+<div style="padding-top:4rem;padding-bottom:3rem;border-bottom:1px solid rgba(26,23,16,.08);background:#FAF6EE;">
+  <div style="max-width:80rem;margin:0 auto;padding:3rem 2.5rem 0;">
     <p class="label-caps" style="color:#D64000;margin-bottom:1rem;">部落格</p>
-    <div class="divider" style="margin-bottom:1.5rem;"></div>
-    <h1 class="display-lg" style="font-size:clamp(2.5rem,6vw,5rem);color:#FAF6EE;margin-bottom:1rem;">醫療知識<br>與衛教分享</h1>
-    <p style="font-size:.9rem;color:rgba(250,246,238,.5);max-width:45ch;line-height:1.8;">曾醫師與冬勝診所團隊定期撰寫身心醫療衛教文章，幫助您正確認識各種身心狀況。</p>
+    <h1 style="font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(2.5rem,6vw,4.5rem);color:#1A1710;line-height:1.05;letter-spacing:-.02em;">醫師的話</h1>
+    <p style="font-size:.9rem;color:#7A7568;margin-top:1rem;max-width:40ch;line-height:1.7;">由曾冬勝醫師撰寫的衛教文章，提供身心健康知識與診療經驗分享。</p>
   </div>
-</section>
+</div>
 
-<!-- FILTER + GRID -->
-<section style="padding:4rem 0 6rem;">
-  <div style="max-width:80rem;margin:0 auto;padding:0 2.5rem;">
+<div style="max-width:80rem;margin:0 auto;padding:2.5rem 2.5rem 1.5rem;">
+  <div style="display:flex;flex-wrap:wrap;gap:.5rem;"><button class="filter-btn active" data-filter="all">全部</button><button class="filter-btn" data-filter="ADHD">ADHD</button><button class="filter-btn" data-filter="兒童青少年">兒童青少年</button><button class="filter-btn" data-filter="創傷">創傷</button><button class="filter-btn" data-filter="喉嚨">喉嚨</button><button class="filter-btn" data-filter="失智症">失智症</button><button class="filter-btn" data-filter="失眠">失眠</button><button class="filter-btn" data-filter="妥瑞氏症">妥瑞氏症</button><button class="filter-btn" data-filter="心悸">心悸</button><button class="filter-btn" data-filter="心理支持">心理支持</button><button class="filter-btn" data-filter="心理治療">心理治療</button><button class="filter-btn" data-filter="心身健康">心身健康</button><button class="filter-btn" data-filter="心身醫學">心身醫學</button><button class="filter-btn" data-filter="憂鬱症">憂鬱症</button><button class="filter-btn" data-filter="成癮">成癮</button><button class="filter-btn" data-filter="生活習慣">生活習慣</button><button class="filter-btn" data-filter="老年照護">老年照護</button><button class="filter-btn" data-filter="腸胃">腸胃</button><button class="filter-btn" data-filter="腸躁症">腸躁症</button><button class="filter-btn" data-filter="自律神經">自律神經</button><button class="filter-btn" data-filter="身心科">身心科</button><button class="filter-btn" data-filter="頭痛">頭痛</button></div>
+</div>
 
-    <!-- Filters -->
-    <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:3rem;" id="filters">
-      <button class="filter-btn active" data-tag="all">全部文章</button>
-      <button class="filter-btn" data-tag="身心科">身心科</button>
-      <button class="filter-btn" data-tag="自律神經">自律神經</button>
-      <button class="filter-btn" data-tag="兒童青少年">兒童青少年</button>
-      <button class="filter-btn" data-tag="老年照護">老年照護</button>
-      <button class="filter-btn" data-tag="成癮">成癮治療</button>
-      <button class="filter-btn" data-tag="失眠">失眠</button>
-      <button class="filter-btn" data-tag="頭痛">頭痛</button>
-      <button class="filter-btn" data-tag="憂鬱症">憂鬱症</button>
-      <button class="filter-btn" data-tag="心身醫學">心身醫學</button>
-    </div>
-
-    <!-- Grid -->
-    <div id="post-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2px;background:#E8E2D8;">
-
-      <a href="blog/heart-thremble.html" class="post-card fade-up" data-tags="身心科">
-        <div style="overflow:hidden;aspect-ratio:16/9;position:relative;">
-          <img class="card-img" src="../common/clinic_assets/blog_photo/blog_heartache.jpg" alt="心悸">
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.55) 0%,transparent 55%);"></div>
-          <span style="position:absolute;top:1rem;left:1rem;background:#D64000;color:#FAF6EE;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .6rem;">身心科</span>
+<div style="max-width:80rem;margin:0 auto;padding:0 2.5rem 6rem;">
+  <div id="posts-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2rem;">
+    
+      <a href="blog/sleeping-method.html" class="post-card fade-up" data-tags="失眠,生活習慣">
+        <div style="height:220px;overflow:hidden;position:relative;">
+          <img src="common/clinic_assets/blog_photo/blog_sleepill.jpg" alt="如何不使用安眠藥克服失眠" class="card-img">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.4),transparent);"></div>
+          <span class="label-caps" style="position:absolute;top:1rem;left:1rem;color:#FAF6EE;background:rgba(214,64,0,.85);padding:.25rem .6rem;">失眠</span>
         </div>
-        <div style="padding:1.5rem;background:#FAF6EE;">
-          <p style="font-family:'Inter',sans-serif;font-size:.7rem;color:#C4BFB5;margin-bottom:.6rem;">2019年12月17日</p>
-          <h3 style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">心悸也可以找身心科</h3>
-          <p style="font-size:.82rem;color:#7A7568;line-height:1.7;margin-bottom:1.25rem;">心跳過快不一定只是心臟的問題——交感神經過度亢奮也可能是原因，身心科有完整的治療方案。</p>
-          <span style="display:flex;align-items:center;gap:.4rem;color:#D64000;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:500;">閱讀更多 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        <div style="padding:1.5rem;">
+          <p style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">如何不使用安眠藥克服失眠</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'Inter',sans-serif;font-size:.72rem;color:#C4BFB5;">Wed Jun 17年undefined月undefined日</span>
+            <span class="label-caps" style="color:#D64000;font-size:.62rem;">閱讀更多 →</span>
+          </div>
         </div>
       </a>
-
-      <a href="blog/toris.html" class="post-card fade-up" data-tags="兒童青少年" style="transition-delay:.05s;">
-        <div style="overflow:hidden;aspect-ratio:16/9;position:relative;">
-          <img class="card-img" src="../common/clinic_assets/blog_photo/blog_toris.png" alt="妥瑞氏症">
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.55) 0%,transparent 55%);"></div>
-          <span style="position:absolute;top:1rem;left:1rem;background:#1A1710;color:#FAF6EE;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .6rem;">兒童青少年</span>
+      <a href="blog/phobia.html" class="post-card fade-up" data-tags="心身醫學,創傷">
+        <div style="height:220px;overflow:hidden;position:relative;">
+          <img src="common/clinic_assets/blog_photo/blog_injure.jpg" alt="創傷後症候群" class="card-img">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.4),transparent);"></div>
+          <span class="label-caps" style="position:absolute;top:1rem;left:1rem;color:#FAF6EE;background:rgba(214,64,0,.85);padding:.25rem .6rem;">心身醫學</span>
         </div>
-        <div style="padding:1.5rem;background:#FAF6EE;">
-          <p style="font-family:'Inter',sans-serif;font-size:.7rem;color:#C4BFB5;margin-bottom:.6rem;">2020年01月11日</p>
-          <h3 style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">妥瑞氏症</h3>
-          <p style="font-size:.82rem;color:#7A7568;line-height:1.7;margin-bottom:1.25rem;">從眨眼睛到聲音痙攣，妥瑞氏症症狀多樣——早期正確診斷、積極治療，效果非常好。</p>
-          <span style="display:flex;align-items:center;gap:.4rem;color:#D64000;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:500;">閱讀更多 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-        </div>
-      </a>
-
-      <a href="blog/intestine.html" class="post-card fade-up" data-tags="自律神經" style="transition-delay:.1s;">
-        <div style="overflow:hidden;aspect-ratio:16/9;position:relative;">
-          <img class="card-img" src="../common/clinic_assets/blog_photo/blog_intestine.jpg" alt="腸躁症">
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.55) 0%,transparent 55%);"></div>
-          <span style="position:absolute;top:1rem;left:1rem;background:#1A1710;color:#FAF6EE;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .6rem;">自律神經</span>
-        </div>
-        <div style="padding:1.5rem;background:#FAF6EE;">
-          <p style="font-family:'Inter',sans-serif;font-size:.7rem;color:#C4BFB5;margin-bottom:.6rem;">2020年01月21日</p>
-          <h3 style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">腸躁症</h3>
-          <p style="font-size:.82rem;color:#7A7568;line-height:1.7;margin-bottom:1.25rem;">一緊張就想上廁所？大腸激躁症與交感神經過度亢奮有關，放鬆訓練和藥物治療效果良好。</p>
-          <span style="display:flex;align-items:center;gap:.4rem;color:#D64000;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:500;">閱讀更多 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        <div style="padding:1.5rem;">
+          <p style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">創傷後症候群</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'Inter',sans-serif;font-size:.72rem;color:#C4BFB5;">Thu Jun 04年undefined月undefined日</span>
+            <span class="label-caps" style="color:#D64000;font-size:.62rem;">閱讀更多 →</span>
+          </div>
         </div>
       </a>
-
-      <a href="blog/material-treatment.html" class="post-card fade-up" data-tags="成癮" style="transition-delay:.15s;">
-        <div style="overflow:hidden;aspect-ratio:16/9;position:relative;">
-          <img class="card-img" src="../common/clinic_assets/blog_photo/blog_news.jpg" alt="物質成癮">
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.55) 0%,transparent 55%);"></div>
-          <span style="position:absolute;top:1rem;left:1rem;background:#1A1710;color:#FAF6EE;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .6rem;">成癮</span>
+      <a href="blog/zannen.html" class="post-card fade-up" data-tags="心身醫學">
+        <div style="height:220px;overflow:hidden;position:relative;">
+          <img src="common/clinic_assets/blog_photo/blog_zannen.jpg" alt="殘念" class="card-img">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.4),transparent);"></div>
+          <span class="label-caps" style="position:absolute;top:1rem;left:1rem;color:#FAF6EE;background:rgba(214,64,0,.85);padding:.25rem .6rem;">心身醫學</span>
         </div>
-        <div style="padding:1.5rem;background:#FAF6EE;">
-          <p style="font-family:'Inter',sans-serif;font-size:.7rem;color:#C4BFB5;margin-bottom:.6rem;">2020年02月14日</p>
-          <h3 style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">針對物質使用疾患的動機促進心理治療</h3>
-          <p style="font-size:.82rem;color:#7A7568;line-height:1.7;margin-bottom:1.25rem;">動機促進心理治療（MET）是全球公認對物質成癮最有效的心理治療方法之一。</p>
-          <span style="display:flex;align-items:center;gap:.4rem;color:#D64000;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:500;">閱讀更多 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-        </div>
-      </a>
-
-      <a href="blog/child-issue.html" class="post-card fade-up" data-tags="兒童青少年" style="transition-delay:.2s;">
-        <div style="overflow:hidden;aspect-ratio:16/9;position:relative;">
-          <img class="card-img" src="../common/clinic_assets/blog_photo/blog_misspell.jpg" alt="過動症">
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.55) 0%,transparent 55%);"></div>
-          <span style="position:absolute;top:1rem;left:1rem;background:#1A1710;color:#FAF6EE;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .6rem;">兒童青少年</span>
-        </div>
-        <div style="padding:1.5rem;background:#FAF6EE;">
-          <p style="font-family:'Inter',sans-serif;font-size:.7rem;color:#C4BFB5;margin-bottom:.6rem;">2020年02月17日</p>
-          <h3 style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">讀錯字、寫錯字，我的小孩有過動症嗎？</h3>
-          <p style="font-size:.82rem;color:#7A7568;line-height:1.7;margin-bottom:1.25rem;">認識ADHD，避免標籤化——情緒管理、療育介入與家長陪伴，不一定需要靠藥物。</p>
-          <span style="display:flex;align-items:center;gap:.4rem;color:#D64000;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:500;">閱讀更多 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        <div style="padding:1.5rem;">
+          <p style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">殘念</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'Inter',sans-serif;font-size:.72rem;color:#C4BFB5;">Tue Jun 02年undefined月undefined日</span>
+            <span class="label-caps" style="color:#D64000;font-size:.62rem;">閱讀更多 →</span>
+          </div>
         </div>
       </a>
-
-      <a href="blog/throat-tight.html" class="post-card fade-up" data-tags="自律神經" style="transition-delay:.25s;">
-        <div style="overflow:hidden;aspect-ratio:16/9;position:relative;">
-          <img class="card-img" src="../common/clinic_assets/blog_photo/blog_throat.png" alt="喉嚨緊">
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.55) 0%,transparent 55%);"></div>
-          <span style="position:absolute;top:1rem;left:1rem;background:#1A1710;color:#FAF6EE;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .6rem;">自律神經</span>
+      <a href="blog/stomache.html" class="post-card fade-up" data-tags="心身醫學,腸胃">
+        <div style="height:220px;overflow:hidden;position:relative;">
+          <img src="common/clinic_assets/blog_photo/blog_stomachache.jpg" alt="胃痛但胃鏡正常怎麼辦？" class="card-img">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.4),transparent);"></div>
+          <span class="label-caps" style="position:absolute;top:1rem;left:1rem;color:#FAF6EE;background:rgba(214,64,0,.85);padding:.25rem .6rem;">心身醫學</span>
         </div>
-        <div style="padding:1.5rem;background:#FAF6EE;">
-          <p style="font-family:'Inter',sans-serif;font-size:.7rem;color:#C4BFB5;margin-bottom:.6rem;">2020年02月17日</p>
-          <h3 style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">喉嚨緊緊的該看哪一科？</h3>
-          <p style="font-size:.82rem;color:#7A7568;line-height:1.7;margin-bottom:1.25rem;">耳鼻喉科找不出原因的喉嚨緊，古稱「梅核氣」，現代醫學認為是自律神經失調的表現。</p>
-          <span style="display:flex;align-items:center;gap:.4rem;color:#D64000;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:500;">閱讀更多 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-        </div>
-      </a>
-
-      <a href="blog/oldman-pig.html" class="post-card fade-up" data-tags="老年照護" style="transition-delay:.3s;">
-        <div style="overflow:hidden;aspect-ratio:16/9;position:relative;">
-          <img class="card-img" src="../common/clinic_assets/blog_photo/blog_threepig.png" alt="老年照護">
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.55) 0%,transparent 55%);"></div>
-          <span style="position:absolute;top:1rem;left:1rem;background:#1A1710;color:#FAF6EE;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .6rem;">老年照護</span>
-        </div>
-        <div style="padding:1.5rem;background:#FAF6EE;">
-          <p style="font-family:'Inter',sans-serif;font-size:.7rem;color:#C4BFB5;margin-bottom:.6rem;">2020年03月01日</p>
-          <h3 style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">淺談老人與山豬</h3>
-          <p style="font-size:.82rem;color:#7A7568;line-height:1.7;margin-bottom:1.25rem;">老年三大身心科疾病：憂鬱症、失智症、譫妄（3D），了解早期症狀是關鍵。</p>
-          <span style="display:flex;align-items:center;gap:.4rem;color:#D64000;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:500;">閱讀更多 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        <div style="padding:1.5rem;">
+          <p style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">胃痛但胃鏡正常怎麼辦？</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'Inter',sans-serif;font-size:.72rem;color:#C4BFB5;">Tue May 12年undefined月undefined日</span>
+            <span class="label-caps" style="color:#D64000;font-size:.62rem;">閱讀更多 →</span>
+          </div>
         </div>
       </a>
-
-      <a href="blog/headache.html" class="post-card fade-up" data-tags="頭痛" style="transition-delay:.35s;">
-        <div style="overflow:hidden;aspect-ratio:16/9;position:relative;">
-          <img class="card-img" src="../common/clinic_assets/blog_photo/blog_headache.jpg" alt="頭痛">
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.55) 0%,transparent 55%);"></div>
-          <span style="position:absolute;top:1rem;left:1rem;background:#1A1710;color:#FAF6EE;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .6rem;">頭痛</span>
+      <a href="blog/gay-issue.html" class="post-card fade-up" data-tags="心身健康,心理支持">
+        <div style="height:220px;overflow:hidden;position:relative;">
+          <img src="common/clinic_assets/blog_photo/blog_lgbt.png" alt="同性戀還會難以啟齒嗎？" class="card-img">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.4),transparent);"></div>
+          <span class="label-caps" style="position:absolute;top:1rem;left:1rem;color:#FAF6EE;background:rgba(214,64,0,.85);padding:.25rem .6rem;">心身健康</span>
         </div>
-        <div style="padding:1.5rem;background:#FAF6EE;">
-          <p style="font-family:'Inter',sans-serif;font-size:.7rem;color:#C4BFB5;margin-bottom:.6rem;">2020年03月04日</p>
-          <h3 style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">頭痛</h3>
-          <p style="font-size:.82rem;color:#7A7568;line-height:1.7;margin-bottom:1.25rem;">張力性頭痛、偏頭痛、叢集性頭痛——大部分頭痛與身心科密切相關，認識它才能正確治療。</p>
-          <span style="display:flex;align-items:center;gap:.4rem;color:#D64000;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:500;">閱讀更多 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-        </div>
-      </a>
-
-      <a href="blog/churchie-blackdog.html" class="post-card fade-up" data-tags="憂鬱症" style="transition-delay:.4s;">
-        <div style="overflow:hidden;aspect-ratio:16/9;position:relative;">
-          <img class="card-img" src="../common/clinic_assets/blog_photo/blog_oldmandog.jpg" alt="邱吉爾與黑狗">
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.55) 0%,transparent 55%);"></div>
-          <span style="position:absolute;top:1rem;left:1rem;background:#D64000;color:#FAF6EE;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .6rem;">憂鬱症</span>
-        </div>
-        <div style="padding:1.5rem;background:#FAF6EE;">
-          <p style="font-family:'Inter',sans-serif;font-size:.7rem;color:#C4BFB5;margin-bottom:.6rem;">2020年04月04日</p>
-          <h3 style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">邱吉爾與黑狗</h3>
-          <p style="font-size:.82rem;color:#7A7568;line-height:1.7;margin-bottom:1.25rem;">憂鬱症長期被低估——WHO以「邱吉爾心中的黑狗」呼籲正視憂鬱症的早期發現與治療。</p>
-          <span style="display:flex;align-items:center;gap:.4rem;color:#D64000;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:500;">閱讀更多 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        <div style="padding:1.5rem;">
+          <p style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">同性戀還會難以啟齒嗎？</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'Inter',sans-serif;font-size:.72rem;color:#C4BFB5;">Mon May 04年undefined月undefined日</span>
+            <span class="label-caps" style="color:#D64000;font-size:.62rem;">閱讀更多 →</span>
+          </div>
         </div>
       </a>
-
-      <a href="blog/gay-issue.html" class="post-card fade-up" data-tags="心身醫學" style="transition-delay:.45s;">
-        <div style="overflow:hidden;aspect-ratio:16/9;position:relative;">
-          <img class="card-img" src="../common/clinic_assets/blog_photo/blog_lgbt.png" alt="身心議題">
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.55) 0%,transparent 55%);"></div>
-          <span style="position:absolute;top:1rem;left:1rem;background:#1A1710;color:#FAF6EE;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .6rem;">心身健康</span>
+      <a href="blog/churchie-blackdog.html" class="post-card fade-up" data-tags="憂鬱症,身心科">
+        <div style="height:220px;overflow:hidden;position:relative;">
+          <img src="common/clinic_assets/blog_photo/blog_oldmandog.jpg" alt="邱吉爾與黑狗" class="card-img">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.4),transparent);"></div>
+          <span class="label-caps" style="position:absolute;top:1rem;left:1rem;color:#FAF6EE;background:rgba(214,64,0,.85);padding:.25rem .6rem;">憂鬱症</span>
         </div>
-        <div style="padding:1.5rem;background:#FAF6EE;">
-          <p style="font-family:'Inter',sans-serif;font-size:.7rem;color:#C4BFB5;margin-bottom:.6rem;">2020年05月04日</p>
-          <h3 style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">同性戀還會難以啟齒嗎？</h3>
-          <p style="font-size:.82rem;color:#7A7568;line-height:1.7;margin-bottom:1.25rem;">從精神醫學角度看待性別認同議題——法律之外，情緒支持與心理接納同樣不可或缺。</p>
-          <span style="display:flex;align-items:center;gap:.4rem;color:#D64000;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:500;">閱讀更多 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-        </div>
-      </a>
-
-      <a href="blog/stomache.html" class="post-card fade-up" data-tags="心身醫學" style="transition-delay:.5s;">
-        <div style="overflow:hidden;aspect-ratio:16/9;position:relative;">
-          <img class="card-img" src="../common/clinic_assets/blog_photo/blog_stomachache.jpg" alt="胃痛">
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.55) 0%,transparent 55%);"></div>
-          <span style="position:absolute;top:1rem;left:1rem;background:#1A1710;color:#FAF6EE;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .6rem;">心身醫學</span>
-        </div>
-        <div style="padding:1.5rem;background:#FAF6EE;">
-          <p style="font-family:'Inter',sans-serif;font-size:.7rem;color:#C4BFB5;margin-bottom:.6rem;">2020年05月12日</p>
-          <h3 style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">胃痛但胃鏡正常怎麼辦？</h3>
-          <p style="font-size:.82rem;color:#7A7568;line-height:1.7;margin-bottom:1.25rem;">胃鏡正常卻持續胃痛？可能是「隱藏式憂鬱症」——身心科能幫您找到真正的根源。</p>
-          <span style="display:flex;align-items:center;gap:.4rem;color:#D64000;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:500;">閱讀更多 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        <div style="padding:1.5rem;">
+          <p style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">邱吉爾與黑狗</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'Inter',sans-serif;font-size:.72rem;color:#C4BFB5;">Sat Apr 04年undefined月undefined日</span>
+            <span class="label-caps" style="color:#D64000;font-size:.62rem;">閱讀更多 →</span>
+          </div>
         </div>
       </a>
-
-      <a href="blog/zannen.html" class="post-card fade-up" data-tags="心身醫學" style="transition-delay:.55s;">
-        <div style="overflow:hidden;aspect-ratio:16/9;position:relative;">
-          <img class="card-img" src="../common/clinic_assets/blog_photo/blog_zannen.jpg" alt="殘念">
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.55) 0%,transparent 55%);"></div>
-          <span style="position:absolute;top:1rem;left:1rem;background:#1A1710;color:#FAF6EE;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .6rem;">心身醫學</span>
+      <a href="blog/headache.html" class="post-card fade-up" data-tags="頭痛,身心科">
+        <div style="height:220px;overflow:hidden;position:relative;">
+          <img src="common/clinic_assets/blog_photo/blog_headache.jpg" alt="頭痛" class="card-img">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.4),transparent);"></div>
+          <span class="label-caps" style="position:absolute;top:1rem;left:1rem;color:#FAF6EE;background:rgba(214,64,0,.85);padding:.25rem .6rem;">頭痛</span>
         </div>
-        <div style="padding:1.5rem;background:#FAF6EE;">
-          <p style="font-family:'Inter',sans-serif;font-size:.7rem;color:#C4BFB5;margin-bottom:.6rem;">2020年06月02日</p>
-          <h3 style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">殘念</h3>
-          <p style="font-size:.82rem;color:#7A7568;line-height:1.7;margin-bottom:1.25rem;">身體化的情緒症狀往往與隱藏的憂鬱相關，專業診斷是找回健康的第一步。</p>
-          <span style="display:flex;align-items:center;gap:.4rem;color:#D64000;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:500;">閱讀更多 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-        </div>
-      </a>
-
-      <a href="blog/phobia.html" class="post-card fade-up" data-tags="心身醫學" style="transition-delay:.6s;">
-        <div style="overflow:hidden;aspect-ratio:16/9;position:relative;">
-          <img class="card-img" src="../common/clinic_assets/blog_photo/blog_injure.jpg" alt="創傷後症候群">
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.55) 0%,transparent 55%);"></div>
-          <span style="position:absolute;top:1rem;left:1rem;background:#1A1710;color:#FAF6EE;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .6rem;">心身醫學</span>
-        </div>
-        <div style="padding:1.5rem;background:#FAF6EE;">
-          <p style="font-family:'Inter',sans-serif;font-size:.7rem;color:#C4BFB5;margin-bottom:.6rem;">2020年06月04日</p>
-          <h3 style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">創傷後症候群</h3>
-          <p style="font-size:.82rem;color:#7A7568;line-height:1.7;margin-bottom:1.25rem;">面對巨大失落與創傷，需要藥物、心理治療與家人陪伴——一步一步才能慢慢好起來。</p>
-          <span style="display:flex;align-items:center;gap:.4rem;color:#D64000;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:500;">閱讀更多 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        <div style="padding:1.5rem;">
+          <p style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">頭痛</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'Inter',sans-serif;font-size:.72rem;color:#C4BFB5;">Wed Mar 04年undefined月undefined日</span>
+            <span class="label-caps" style="color:#D64000;font-size:.62rem;">閱讀更多 →</span>
+          </div>
         </div>
       </a>
-
-      <a href="blog/sleeping-method.html" class="post-card fade-up" data-tags="失眠" style="transition-delay:.65s;">
-        <div style="overflow:hidden;aspect-ratio:16/9;position:relative;">
-          <img class="card-img" src="../common/clinic_assets/blog_photo/blog_sleepill.jpg" alt="失眠">
-          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.55) 0%,transparent 55%);"></div>
-          <span style="position:absolute;top:1rem;left:1rem;background:#D64000;color:#FAF6EE;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .6rem;">失眠</span>
+      <a href="blog/oldman-pig.html" class="post-card fade-up" data-tags="老年照護,失智症,憂鬱症">
+        <div style="height:220px;overflow:hidden;position:relative;">
+          <img src="common/clinic_assets/blog_photo/blog_threepig.png" alt="淺談老人與山豬" class="card-img">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.4),transparent);"></div>
+          <span class="label-caps" style="position:absolute;top:1rem;left:1rem;color:#FAF6EE;background:rgba(214,64,0,.85);padding:.25rem .6rem;">老年照護</span>
         </div>
-        <div style="padding:1.5rem;background:#FAF6EE;">
-          <p style="font-family:'Inter',sans-serif;font-size:.7rem;color:#C4BFB5;margin-bottom:.6rem;">2020年06月17日</p>
-          <h3 style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">如何不使用安眠藥克服失眠</h3>
-          <p style="font-size:.82rem;color:#7A7568;line-height:1.7;margin-bottom:1.25rem;">了解哪些生活習慣會引起失眠，從日常調整做起，不依賴藥物也能擁有好睡眠。</p>
-          <span style="display:flex;align-items:center;gap:.4rem;color:#D64000;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:500;">閱讀更多 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        <div style="padding:1.5rem;">
+          <p style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">淺談老人與山豬</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'Inter',sans-serif;font-size:.72rem;color:#C4BFB5;">Sun Mar 01年undefined月undefined日</span>
+            <span class="label-caps" style="color:#D64000;font-size:.62rem;">閱讀更多 →</span>
+          </div>
         </div>
       </a>
-
-    </div><!-- end grid -->
+      <a href="blog/child-issue.html" class="post-card fade-up" data-tags="兒童青少年,ADHD">
+        <div style="height:220px;overflow:hidden;position:relative;">
+          <img src="common/clinic_assets/blog_photo/blog_misspell.jpg" alt="讀錯字、寫錯字，我的小孩有過動症嗎？" class="card-img">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.4),transparent);"></div>
+          <span class="label-caps" style="position:absolute;top:1rem;left:1rem;color:#FAF6EE;background:rgba(214,64,0,.85);padding:.25rem .6rem;">兒童青少年</span>
+        </div>
+        <div style="padding:1.5rem;">
+          <p style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">讀錯字、寫錯字，我的小孩有過動症嗎？</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'Inter',sans-serif;font-size:.72rem;color:#C4BFB5;">Mon Feb 17年undefined月undefined日</span>
+            <span class="label-caps" style="color:#D64000;font-size:.62rem;">閱讀更多 →</span>
+          </div>
+        </div>
+      </a>
+      <a href="blog/throat-tight.html" class="post-card fade-up" data-tags="自律神經,喉嚨">
+        <div style="height:220px;overflow:hidden;position:relative;">
+          <img src="common/clinic_assets/blog_photo/blog_throat.png" alt="喉嚨緊緊的該看哪一科？" class="card-img">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.4),transparent);"></div>
+          <span class="label-caps" style="position:absolute;top:1rem;left:1rem;color:#FAF6EE;background:rgba(214,64,0,.85);padding:.25rem .6rem;">自律神經</span>
+        </div>
+        <div style="padding:1.5rem;">
+          <p style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">喉嚨緊緊的該看哪一科？</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'Inter',sans-serif;font-size:.72rem;color:#C4BFB5;">Mon Feb 17年undefined月undefined日</span>
+            <span class="label-caps" style="color:#D64000;font-size:.62rem;">閱讀更多 →</span>
+          </div>
+        </div>
+      </a>
+      <a href="blog/material-treatment.html" class="post-card fade-up" data-tags="成癮,心理治療">
+        <div style="height:220px;overflow:hidden;position:relative;">
+          <img src="common/clinic_assets/blog_photo/blog_news.jpg" alt="針對物質使用疾患的動機促進心理治療" class="card-img">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.4),transparent);"></div>
+          <span class="label-caps" style="position:absolute;top:1rem;left:1rem;color:#FAF6EE;background:rgba(214,64,0,.85);padding:.25rem .6rem;">成癮</span>
+        </div>
+        <div style="padding:1.5rem;">
+          <p style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">針對物質使用疾患的動機促進心理治療</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'Inter',sans-serif;font-size:.72rem;color:#C4BFB5;">Fri Feb 14年undefined月undefined日</span>
+            <span class="label-caps" style="color:#D64000;font-size:.62rem;">閱讀更多 →</span>
+          </div>
+        </div>
+      </a>
+      <a href="blog/intestine.html" class="post-card fade-up" data-tags="自律神經,腸躁症">
+        <div style="height:220px;overflow:hidden;position:relative;">
+          <img src="common/clinic_assets/blog_photo/blog_intestine.jpg" alt="腸躁症" class="card-img">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.4),transparent);"></div>
+          <span class="label-caps" style="position:absolute;top:1rem;left:1rem;color:#FAF6EE;background:rgba(214,64,0,.85);padding:.25rem .6rem;">自律神經</span>
+        </div>
+        <div style="padding:1.5rem;">
+          <p style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">腸躁症</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'Inter',sans-serif;font-size:.72rem;color:#C4BFB5;">Tue Jan 21年undefined月undefined日</span>
+            <span class="label-caps" style="color:#D64000;font-size:.62rem;">閱讀更多 →</span>
+          </div>
+        </div>
+      </a>
+      <a href="blog/toris.html" class="post-card fade-up" data-tags="兒童青少年,妥瑞氏症">
+        <div style="height:220px;overflow:hidden;position:relative;">
+          <img src="common/clinic_assets/blog_photo/blog_toris.png" alt="妥瑞氏症" class="card-img">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.4),transparent);"></div>
+          <span class="label-caps" style="position:absolute;top:1rem;left:1rem;color:#FAF6EE;background:rgba(214,64,0,.85);padding:.25rem .6rem;">兒童青少年</span>
+        </div>
+        <div style="padding:1.5rem;">
+          <p style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">妥瑞氏症</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'Inter',sans-serif;font-size:.72rem;color:#C4BFB5;">Sat Jan 11年undefined月undefined日</span>
+            <span class="label-caps" style="color:#D64000;font-size:.62rem;">閱讀更多 →</span>
+          </div>
+        </div>
+      </a>
+      <a href="blog/heart-thremble.html" class="post-card fade-up" data-tags="身心科,心悸,自律神經">
+        <div style="height:220px;overflow:hidden;position:relative;">
+          <img src="common/clinic_assets/blog_photo/blog_heartache.jpg" alt="心悸也可以找身心科" class="card-img">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.4),transparent);"></div>
+          <span class="label-caps" style="position:absolute;top:1rem;left:1rem;color:#FAF6EE;background:rgba(214,64,0,.85);padding:.25rem .6rem;">身心科</span>
+        </div>
+        <div style="padding:1.5rem;">
+          <p style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;color:#1A1710;line-height:1.4;margin-bottom:.75rem;">心悸也可以找身心科</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'Inter',sans-serif;font-size:.72rem;color:#C4BFB5;">Tue Dec 17年undefined月undefined日</span>
+            <span class="label-caps" style="color:#D64000;font-size:.62rem;">閱讀更多 →</span>
+          </div>
+        </div>
+      </a>
   </div>
-</section>
+</div>
 
-<!-- FOOTER -->
-<footer style="background:#111009;padding:3rem 0 2rem;border-top:1px solid rgba(250,246,238,.06);">
-  <div style="max-width:80rem;margin:0 auto;padding:0 2.5rem;">
-    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;border-top:1px solid rgba(250,246,238,.06);padding-top:1.5rem;">
-      <p style="font-size:.72rem;color:rgba(250,246,238,.25);">© 2020–2026 冬勝診所 Dong Sheng Clinic</p>
-      <a href="./" style="font-size:.72rem;color:rgba(250,246,238,.35);text-decoration:none;display:flex;align-items:center;gap:.4rem;transition:color 0.2s;" onmouseover="this.style.color='#D64000'" onmouseout="this.style.color='rgba(250,246,238,.35)'">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        返回首頁
-      </a>
-    </div>
+<footer style="background:#111009;padding:2rem 0;border-top:1px solid rgba(250,246,238,.06);">
+  <div style="max-width:80rem;margin:0 auto;padding:0 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem;">
+    <p style="font-size:.72rem;color:rgba(250,246,238,.25);">© 2020–2026 冬勝診所 Dong Sheng Clinic</p>
+    <a href="/" style="font-size:.72rem;color:rgba(250,246,238,.35);text-decoration:none;" onmouseover="this.style.color='#D64000'" onmouseout="this.style.color='rgba(250,246,238,.35)'">← 回首頁</a>
   </div>
 </footer>
-
 <script>
-  // Nav scroll
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.style.borderBottomColor = window.scrollY > 60 ? 'rgba(26,23,16,.1)' : 'transparent';
-    navbar.style.boxShadow = window.scrollY > 60 ? '0 4px 24px rgba(26,23,16,.08)' : 'none';
-  });
-
-  // Mobile menu
-  document.getElementById('menu-btn').addEventListener('click', () => {
-    document.getElementById('mobile-menu').classList.toggle('open');
-  });
+  const navbar=document.getElementById('navbar');
+  window.addEventListener('scroll',()=>{navbar.style.borderBottomColor=window.scrollY>60?'rgba(26,23,16,.1)':'transparent';navbar.style.boxShadow=window.scrollY>60?'0 4px 24px rgba(26,23,16,.08)':'none';});
+  document.getElementById('menu-btn').addEventListener('click',()=>document.getElementById('mobile-menu').classList.toggle('open'));
 
   // Filter
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.post-card');
-  filterBtns.forEach(btn => {
+  document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const tag = btn.dataset.tag;
-      cards.forEach(card => {
-        const show = tag === 'all' || card.dataset.tags.includes(tag);
-        card.style.display = show ? 'block' : 'none';
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.post-card').forEach(card => {
+        const tags = card.dataset.tags || '';
+        card.style.display = (filter === 'all' || tags.split(',').includes(filter)) ? 'block' : 'none';
       });
     });
   });
@@ -358,7 +295,7 @@
   // Fade-up
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.06 });
+  }, { threshold: 0.08 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 </script>
 </body>
