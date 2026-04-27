@@ -201,6 +201,7 @@ const SESSION_LABELS = { '早診':'早診','午診':'午診','夜診':'夜診' }
 let selectedDate      = null;
 let selectedSession   = null;
 let selectedVisitType = null;
+let fetchController   = null;
 
 function selectVisitType(type, el) {
   selectedVisitType = type;
@@ -259,19 +260,24 @@ function selectDate(dateStr, btn) {
 
 // ── Load sessions ─────────────────────────────────────────────────────────
 async function loadSessions(date) {
+  // Cancel any previous in-flight request
+  if (fetchController) fetchController.abort();
+  fetchController = new AbortController();
+  const { signal } = fetchController;
+
   const section  = document.getElementById('sessions-section');
   const list     = document.getElementById('sessions-list');
   const loading  = document.getElementById('sessions-loading');
   const closed   = document.getElementById('sessions-closed');
 
   section.style.display = 'block';
-  list.innerHTML    = '';
+  list.innerHTML        = '';
   loading.style.display = 'block';
   closed.style.display  = 'none';
 
   try {
     const url  = `${SCRIPT_URL}?action=availability&date=${date}`;
-    const resp = await fetch(url);
+    const resp = await fetch(url, { signal });
     const data = await resp.json();
 
     loading.style.display = 'none';
@@ -304,6 +310,7 @@ async function loadSessions(date) {
     });
 
   } catch (e) {
+    if (e.name === 'AbortError') return; // Superseded by a newer request, discard silently
     loading.style.display = 'none';
     list.innerHTML = '<p style="color:#D64000;font-size:.85rem;padding:1rem;">無法載入診次資訊，請稍後再試。</p>';
   }
