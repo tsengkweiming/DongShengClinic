@@ -1186,17 +1186,26 @@
   (function() {
     const hero = document.querySelector('.hero-bg');
     let mouseActive = false;
+    let rafPending  = false;
+    let pendingX = 0, pendingY = 0;
 
     hero.addEventListener('mousemove', (e) => {
-      const rect = hero.getBoundingClientRect();
-      const gx = ((e.clientX - rect.left) / rect.width * 100).toFixed(1) + '%';
-      const gy = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1) + '%';
-      if (!mouseActive) {
-        mouseActive = true;
-        hero.style.animation = 'none'; // pause ambient
-      }
-      hero.style.setProperty('--gx', gx);
-      hero.style.setProperty('--gy', gy);
+      pendingX = e.clientX;
+      pendingY = e.clientY;
+      if (rafPending) return;
+      rafPending = true;
+      requestAnimationFrame(() => {
+        rafPending = false;
+        const rect = hero.getBoundingClientRect();
+        const gx = ((pendingX - rect.left) / rect.width * 100).toFixed(1) + '%';
+        const gy = ((pendingY - rect.top)  / rect.height * 100).toFixed(1) + '%';
+        if (!mouseActive) {
+          mouseActive = true;
+          hero.style.animation = 'none';
+        }
+        hero.style.setProperty('--gx', gx);
+        hero.style.setProperty('--gy', gy);
+      });
     });
 
     hero.addEventListener('mouseleave', () => {
