@@ -31,7 +31,10 @@ function doGet(e) {
       e.parameter.date,
       e.parameter.session,
       e.parameter.name,
-      e.parameter.phone
+      e.parameter.phone,
+      e.parameter.idNumber,
+      e.parameter.isFirstVisit,
+      e.parameter.note || ''
     );
   } else {
     result = { error: 'Unknown action' };
@@ -65,9 +68,9 @@ function getAvailability(date) {
 }
 
 // ── Booking ───────────────────────────────────────────────────────────────────
-function makeBooking(date, session, name, phone) {
-  if (!date || !session || !name || !phone)
-    return { success: false, error: '請填寫所有欄位' };
+function makeBooking(date, session, name, phone, idNumber, isFirstVisit, note) {
+  if (!date || !session || !name || !phone || !idNumber || !isFirstVisit)
+    return { success: false, error: '請填寫所有必填欄位' };
 
   const lock = LockService.getScriptLock();
   if (!lock.tryLock(6000))
@@ -82,13 +85,13 @@ function makeBooking(date, session, name, phone) {
       return { success: false, error: '此診次已額滿' };
 
     // Validate the session exists on that day
-    const dow      = new Date(date + 'T00:00:00').getDay();
-    const valid    = (SCHEDULE[dow] || []).includes(session);
+    const dow   = new Date(date + 'T00:00:00').getDay();
+    const valid = (SCHEDULE[dow] || []).includes(session);
     if (!valid)
       return { success: false, error: '該日無此診次' };
 
     const queueNumber = booked + 1;
-    sheet.appendRow([date, session, name, phone, queueNumber, new Date()]);
+    sheet.appendRow([date, session, name, phone, idNumber, isFirstVisit, note, queueNumber, new Date()]);
 
     return { success: true, queueNumber, date, session };
 
@@ -99,21 +102,29 @@ function makeBooking(date, session, name, phone) {
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 function getOrCreateSheet() {
-  const ss    = SpreadsheetApp.getActiveSpreadsheet();
-  let sheet   = ss.getSheetByName(SHEET_NAME);
+  const ss  = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName(SHEET_NAME);
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_NAME);
-    sheet.appendRow(['日期', '診次', '姓名', '電話', '號碼', '時間戳記']);
+    sheet.appendRow(['日期', '診次', '姓名', '電話', '身分證字號', '初/複診', '留言', '號碼', '時間戳記']);
     sheet.setFrozenRows(1);
   }
   return sheet;
+}
+
+// Safely convert a cell value (may be Date object or string) to YYYY-MM-DD
+function cellToDateStr(cell) {
+  if (cell instanceof Date) {
+    return Utilities.formatDate(cell, Session.getScriptTimeZone(), 'yyyy-MM-dd');
+  }
+  return String(cell).trim();
 }
 
 function countBookings(sheet, date) {
   const data   = sheet.getDataRange().getValues();
   const counts = {};
   for (let i = 1; i < data.length; i++) {
-    if (String(data[i][0]) === date) {
+    if (cellToDateStr(data[i][0]) === date) {
       const s = data[i][1];
       counts[s] = (counts[s] || 0) + 1;
     }

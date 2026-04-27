@@ -43,8 +43,16 @@
   .form-input{width:100%;padding:.75rem 1rem;border:1px solid rgba(26,23,16,.15);background:#FAF6EE;font-family:'Noto Sans TC',sans-serif;font-size:.9rem;color:#1A1710;outline:none;transition:border-color .2s}
   .form-input:focus{border-color:#1A1710}
 
-  #booking-form-section{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1),opacity .3s;opacity:0}
-  #booking-form-section.open{max-height:600px;opacity:1}
+  #booking-form-section{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1),opacity .3s;opacity:0}
+  #booking-form-section.open{max-height:1000px;opacity:1}
+
+  .radio-group{display:flex;gap:.75rem;}
+  .radio-opt{display:flex;align-items:center;gap:.5rem;cursor:pointer;padding:.65rem 1.1rem;border:1px solid rgba(26,23,16,.15);flex:1;transition:all .2s;}
+  .radio-opt:hover{border-color:#1A1710;}
+  .radio-opt input{accent-color:#1A1710;}
+  .radio-opt.checked{border-color:#1A1710;background:#1A1710;}
+  .radio-opt.checked span{color:#FAF6EE;}
+  .radio-opt span{font-size:.88rem;font-family:'Noto Sans TC',sans-serif;color:#1A1710;}
 
   #success-card{display:none}
   #success-card.show{display:block}
@@ -121,12 +129,33 @@
       </div>
       <div style="display:flex;flex-direction:column;gap:1rem;">
         <div>
-          <label style="font-size:.78rem;color:#7A7568;display:block;margin-bottom:.4rem;">姓名</label>
+          <label style="font-size:.78rem;color:#7A7568;display:block;margin-bottom:.4rem;">姓名 <span style="color:#D64000;">*</span></label>
           <input id="input-name" class="form-input" type="text" placeholder="請輸入真實姓名">
         </div>
         <div>
-          <label style="font-size:.78rem;color:#7A7568;display:block;margin-bottom:.4rem;">聯絡電話</label>
+          <label style="font-size:.78rem;color:#7A7568;display:block;margin-bottom:.4rem;">聯絡電話 <span style="color:#D64000;">*</span></label>
           <input id="input-phone" class="form-input" type="tel" placeholder="例：0912-345-678">
+        </div>
+        <div>
+          <label style="font-size:.78rem;color:#7A7568;display:block;margin-bottom:.4rem;">身分證字號 <span style="color:#D64000;">*</span></label>
+          <input id="input-id" class="form-input" type="text" placeholder="例：A123456789" maxlength="10" style="text-transform:uppercase;">
+        </div>
+        <div>
+          <label style="font-size:.78rem;color:#7A7568;display:block;margin-bottom:.5rem;">初診 / 複診 <span style="color:#D64000;">*</span></label>
+          <div class="radio-group">
+            <label class="radio-opt" id="opt-first" onclick="selectVisitType('初診',this)">
+              <input type="radio" name="visitType" value="初診" style="display:none;">
+              <span>初診</span>
+            </label>
+            <label class="radio-opt" id="opt-return" onclick="selectVisitType('複診',this)">
+              <input type="radio" name="visitType" value="複診" style="display:none;">
+              <span>複診</span>
+            </label>
+          </div>
+        </div>
+        <div>
+          <label style="font-size:.78rem;color:#7A7568;display:block;margin-bottom:.4rem;">留言 <span style="color:#C4BFB5;font-size:.72rem;">（選填）</span></label>
+          <textarea id="input-note" class="form-input" rows="3" placeholder="可填寫症狀描述或其他備註⋯" style="resize:vertical;"></textarea>
         </div>
         <div id="form-error" style="font-size:.82rem;color:#D64000;display:none;padding:.5rem .75rem;border-left:3px solid #D64000;background:rgba(214,64,0,.05);"></div>
         <button id="submit-btn" class="btn-primary" style="width:100%;justify-content:center;">
@@ -169,8 +198,15 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwy_fkPGj4szBVYVghKJ
 const DAY_NAMES = ['日','一','二','三','四','五','六'];
 const SESSION_LABELS = { '早診':'早診','午診':'午診','夜診':'夜診' };
 
-let selectedDate    = null;
-let selectedSession = null;
+let selectedDate      = null;
+let selectedSession   = null;
+let selectedVisitType = null;
+
+function selectVisitType(type, el) {
+  selectedVisitType = type;
+  document.querySelectorAll('.radio-opt').forEach(o => o.classList.remove('checked'));
+  el.classList.add('checked');
+}
 
 // Nav scroll
 const navbar = document.getElementById('navbar');
@@ -298,33 +334,37 @@ function closeForm() {
   document.getElementById('booking-form-section').classList.remove('open');
   document.getElementById('form-error').style.display = 'none';
   document.querySelectorAll('.session-card').forEach(c => c.classList.remove('selected'));
+  selectedVisitType = null;
+  document.querySelectorAll('.radio-opt').forEach(o => o.classList.remove('checked'));
 }
 
 // ── Submit booking ────────────────────────────────────────────────────────
 document.getElementById('submit-btn').addEventListener('click', async () => {
   const name  = document.getElementById('input-name').value.trim();
   const phone = document.getElementById('input-phone').value.trim();
+  const idNum = document.getElementById('input-id').value.trim().toUpperCase();
+  const note  = document.getElementById('input-note').value.trim();
   const err   = document.getElementById('form-error');
 
   err.style.display = 'none';
 
-  if (!name || !phone) {
-    err.textContent    = '請填寫姓名與聯絡電話';
-    err.style.display  = 'block';
+  if (!name || !phone || !idNum || !selectedVisitType) {
+    err.textContent   = '請填寫所有必填欄位（姓名、電話、身分證字號、初/複診）';
+    err.style.display = 'block';
     return;
   }
   if (!selectedDate || !selectedSession) {
-    err.textContent    = '請先選擇日期與診次';
-    err.style.display  = 'block';
+    err.textContent   = '請先選擇日期與診次';
+    err.style.display = 'block';
     return;
   }
 
   const btn = document.getElementById('submit-btn');
-  btn.disabled   = true;
-  btn.innerHTML  = '<span class="spinner"></span> 掛號中⋯';
+  btn.disabled  = true;
+  btn.innerHTML = '<span class="spinner"></span> 掛號中⋯';
 
   try {
-    const url  = `${SCRIPT_URL}?action=book&date=${selectedDate}&session=${encodeURIComponent(selectedSession)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}`;
+    const url  = `${SCRIPT_URL}?action=book&date=${selectedDate}&session=${encodeURIComponent(selectedSession)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&idNumber=${encodeURIComponent(idNum)}&isFirstVisit=${encodeURIComponent(selectedVisitType)}&note=${encodeURIComponent(note)}`;
     const resp = await fetch(url);
     const data = await resp.json();
 
@@ -360,9 +400,13 @@ function resetBooking() {
   document.getElementById('success-card').classList.remove('show');
   document.getElementById('input-name').value  = '';
   document.getElementById('input-phone').value = '';
+  document.getElementById('input-id').value    = '';
+  document.getElementById('input-note').value  = '';
   document.getElementById('submit-btn').disabled = false;
   document.getElementById('submit-btn').innerHTML = '確認掛號';
-  selectedSession = null;
+  selectedSession   = null;
+  selectedVisitType = null;
+  document.querySelectorAll('.radio-opt').forEach(o => o.classList.remove('checked'));
   if (selectedDate) loadSessions(selectedDate);
 }
 
