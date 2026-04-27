@@ -30,6 +30,7 @@ const REWRITES = [
   { from: /^\/blog\.html$/, to: '/src/blog.html' },
   { from: /^\/blog\/(.+)$/, to: (m) => `/src/blog/${m[1]}` },
   { from: /^\/admin(\/.*)?$/, to: '/src/admin/index.html' },
+  { from: /^\/appointment\.html$/, to: '/src/appointment.html' },
 ];
 
 http.createServer((req, res) => {

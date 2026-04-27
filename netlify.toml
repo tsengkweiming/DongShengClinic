@@ -17,3 +17,8 @@
   to = "/src/blog/:post"
   status = 200
 
+[[redirects]]
+  from = "/appointment.html"
+  to = "/src/appointment.html"
+  status = 200
+

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>線上掛號 — 冬勝診所</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Sans+TC:wght@300;400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:#FAF6EE;color:#1A1710;font-family:'Noto Sans TC','Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+
+  .label-caps{font-family:'Inter',sans-serif;font-weight:500;letter-spacing:.25em;text-transform:uppercase;font-size:.7rem}
+  .nav-link{font-family:'Inter',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#1A1710;text-decoration:none;position:relative;transition:color .2s}
+  .nav-link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:#D64000;transition:width .25s cubic-bezier(.4,0,.2,1)}
+  .nav-link:hover{color:#D64000}.nav-link:hover::after{width:100%}
+  .btn-primary{display:inline-flex;align-items:center;gap:.5rem;padding:.875rem 2rem;background:#1A1710;color:#FAF6EE;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s,background .2s;box-shadow:0 4px 16px rgba(26,23,16,.18)}
+  .btn-primary:hover{background:#D64000;transform:translateY(-2px);box-shadow:0 8px 24px rgba(214,64,0,.28)}
+  .btn-primary:disabled{background:#C4BFB5;cursor:not-allowed;transform:none;box-shadow:none}
+
+  .date-btn{display:flex;flex-direction:column;align-items:center;padding:.6rem .5rem;border:1px solid rgba(26,23,16,.12);background:#FAF6EE;cursor:pointer;transition:all .2s;min-width:52px;gap:.15rem}
+  .date-btn:hover:not(:disabled){border-color:#D64000;background:rgba(214,64,0,.04)}
+  .date-btn.active{background:#1A1710;border-color:#1A1710;color:#FAF6EE}
+  .date-btn:disabled{opacity:.35;cursor:not-allowed;background:#F0EBE0}
+  .date-btn .day-label{font-family:'Inter',sans-serif;font-size:.62rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:inherit}
+  .date-btn .day-num{font-family:'Inter',sans-serif;font-size:1.1rem;font-weight:600;color:inherit;line-height:1}
+  .date-btn.active .day-label,.date-btn.active .day-num{color:#FAF6EE}
+
+  .session-card{border:1px solid rgba(26,23,16,.1);padding:1.25rem 1.5rem;background:#FAF6EE;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:all .2s;gap:1rem}
+  .session-card:hover:not(.unavailable):not(.selected){border-color:#D64000;background:rgba(214,64,0,.03)}
+  .session-card.selected{border-color:#1A1710;background:#1A1710}
+  .session-card.selected *{color:#FAF6EE!important}
+  .session-card.unavailable{opacity:.5;cursor:not-allowed}
+
+  .availability-badge{font-family:'Inter',sans-serif;font-size:1.4rem;font-weight:700;line-height:1;min-width:32px;text-align:center}
+  .availability-badge.open{color:#2D7A3A}
+  .availability-badge.full{color:#D64000}
+  .session-card.selected .availability-badge{color:#FAF6EE!important}
+
+  .form-input{width:100%;padding:.75rem 1rem;border:1px solid rgba(26,23,16,.15);background:#FAF6EE;font-family:'Noto Sans TC',sans-serif;font-size:.9rem;color:#1A1710;outline:none;transition:border-color .2s}
+  .form-input:focus{border-color:#1A1710}
+
+  #booking-form-section{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1),opacity .3s;opacity:0}
+  #booking-form-section.open{max-height:600px;opacity:1}
+
+  #success-card{display:none}
+  #success-card.show{display:block}
+
+  .spinner{width:20px;height:20px;border:2px solid rgba(250,246,238,.3);border-top-color:#FAF6EE;border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  #mobile-menu{display:none}#mobile-menu.open{display:flex}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar" style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(250,246,238,.93);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:all .3s;">
+  <div style="max-width:80rem;margin:0 auto;padding:0 2.5rem;">
+    <div style="display:flex;align-items:center;justify-content:space-between;height:4rem;">
+      <a href="/" style="display:flex;align-items:center;gap:.75rem;text-decoration:none;">
+        <div style="width:36px;height:36px;background:#D64000;display:flex;align-items:center;justify-content:center;"><span style="color:#FAF6EE;font-family:'Noto Serif TC',serif;font-weight:900;font-size:1rem;">冬</span></div>
+        <div><div style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:.95rem;color:#1A1710;line-height:1.2;">冬勝診所</div><div class="label-caps" style="color:#7A7568;font-size:.58rem;">Dong Sheng Clinic</div></div>
+      </a>
+      <div style="display:none;gap:2rem;align-items:center;" id="desktop-nav">
+        <a href="/#services" class="nav-link">診療項目</a>
+        <a href="/#about" class="nav-link">關於我們</a>
+        <a href="/#doctor" class="nav-link">醫師介紹</a>
+        <a href="/blog.html" class="nav-link">部落格</a>
+        <a href="/#contact" class="nav-link">聯絡我們</a>
+        <a href="/appointment.html" class="nav-link" style="color:#D64000;">線上掛號</a>
+      </div>
+      <button id="menu-btn" style="padding:.5rem;background:none;border:none;cursor:pointer;color:#1A1710;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+  <div id="mobile-menu" style="flex-direction:column;background:rgba(250,246,238,.98);border-top:1px solid rgba(26,23,16,.08);padding:1rem 1.5rem 1.5rem;">
+    <a href="/#services" class="nav-link" style="padding:.75rem 0;display:block;border-bottom:1px solid rgba(26,23,16,.06);">診療項目</a>
+    <a href="/blog.html" class="nav-link" style="padding:.75rem 0;display:block;border-bottom:1px solid rgba(26,23,16,.06);">部落格</a>
+    <a href="/appointment.html" class="nav-link" style="padding:.75rem 0;display:block;color:#D64000;">線上掛號</a>
+    <a href="/#contact" class="nav-link" style="padding:.75rem 0;display:block;">聯絡我們</a>
+  </div>
+</nav>
+<style>@media(min-width:768px){#desktop-nav{display:flex!important;}#menu-btn{display:none;}}</style>
+
+<!-- HEADER -->
+<div style="padding-top:4rem;background:#FAF6EE;border-bottom:1px solid rgba(26,23,16,.08);">
+  <div style="max-width:48rem;margin:0 auto;padding:3rem 2rem 2.5rem;">
+    <p class="label-caps" style="color:#D64000;margin-bottom:1rem;">線上掛號</p>
+    <h1 style="font-family:'Noto Serif TC',serif;font-weight:900;font-size:clamp(2rem,5vw,3rem);color:#1A1710;line-height:1.1;letter-spacing:-.02em;">預約掛號</h1>
+    <p style="font-size:.875rem;color:#7A7568;margin-top:.75rem;line-height:1.7;">每診限網路掛號 <strong style="color:#1A1710;">10 位</strong>，額滿顯示 ✗。選擇日期與診次後填寫資料即可完成掛號。</p>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div style="max-width:48rem;margin:0 auto;padding:2.5rem 2rem 6rem;">
+
+  <!-- Step 1: Date picker -->
+  <div style="margin-bottom:2.5rem;">
+    <p class="label-caps" style="color:#7A7568;margin-bottom:1rem;">① 選擇日期</p>
+    <div id="date-strip" style="display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.5rem;"></div>
+  </div>
+
+  <!-- Step 2: Sessions -->
+  <div id="sessions-section" style="margin-bottom:2rem;display:none;">
+    <p class="label-caps" style="color:#7A7568;margin-bottom:1rem;">② 選擇診次</p>
+    <div id="sessions-list" style="display:flex;flex-direction:column;gap:.75rem;"></div>
+    <div id="sessions-loading" style="padding:2rem;text-align:center;color:#C4BFB5;font-size:.85rem;display:none;">載入中⋯</div>
+    <div id="sessions-closed" style="padding:2rem;text-align:center;color:#C4BFB5;font-size:.85rem;display:none;">本日休診</div>
+  </div>
+
+  <!-- Step 3: Booking form -->
+  <div id="booking-form-section">
+    <div style="border:1px solid rgba(26,23,16,.1);padding:2rem;background:#F5F0E6;">
+      <p class="label-caps" style="color:#7A7568;margin-bottom:1.25rem;">③ 填寫資料</p>
+      <div id="selected-summary" style="margin-bottom:1.5rem;padding:.75rem 1rem;background:#1A1710;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;">
+        <span id="selected-date-label" style="font-family:'Inter',sans-serif;font-size:.8rem;color:#FAF6EE;"></span>
+        <span id="selected-session-label" style="font-family:'Noto Serif TC',serif;font-size:.95rem;font-weight:700;color:#FAF6EE;"></span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div>
+          <label style="font-size:.78rem;color:#7A7568;display:block;margin-bottom:.4rem;">姓名</label>
+          <input id="input-name" class="form-input" type="text" placeholder="請輸入真實姓名">
+        </div>
+        <div>
+          <label style="font-size:.78rem;color:#7A7568;display:block;margin-bottom:.4rem;">聯絡電話</label>
+          <input id="input-phone" class="form-input" type="tel" placeholder="例：0912-345-678">
+        </div>
+        <div id="form-error" style="font-size:.82rem;color:#D64000;display:none;padding:.5rem .75rem;border-left:3px solid #D64000;background:rgba(214,64,0,.05);"></div>
+        <button id="submit-btn" class="btn-primary" style="width:100%;justify-content:center;">
+          確認掛號
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success card -->
+  <div id="success-card" style="border:1px solid rgba(26,23,16,.1);overflow:hidden;">
+    <div style="background:#1A1710;padding:2.5rem 2rem;text-align:center;">
+      <p class="label-caps" style="color:#D64000;margin-bottom:1rem;">掛號成功</p>
+      <div style="font-family:'Inter',sans-serif;font-size:.72rem;color:rgba(250,246,238,.4);margin-bottom:.5rem;">您的號碼</div>
+      <div id="queue-number" style="font-family:'Inter',sans-serif;font-size:5rem;font-weight:700;color:#FAF6EE;line-height:1;letter-spacing:-.04em;"></div>
+      <div style="width:40px;height:2px;background:#D64000;margin:1.25rem auto;"></div>
+      <div id="success-detail" style="font-size:.85rem;color:rgba(250,246,238,.6);line-height:1.7;"></div>
+    </div>
+    <div style="background:#F5F0E6;padding:1.25rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem;">
+      <p style="font-size:.8rem;color:#7A7568;">請於診次開始前提前到達，並出示此號碼。</p>
+      <button onclick="resetBooking()" style="font-family:'Inter',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.45rem 1rem;border:1px solid rgba(26,23,16,.2);background:transparent;color:#1A1710;cursor:pointer;">再次掛號</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer style="background:#111009;padding:2rem 0;border-top:1px solid rgba(250,246,238,.06);">
+  <div style="max-width:80rem;margin:0 auto;padding:0 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem;">
+    <p style="font-size:.72rem;color:rgba(250,246,238,.25);">© 2020–2026 冬勝診所 Dong Sheng Clinic</p>
+    <a href="/" style="font-size:.72rem;color:rgba(250,246,238,.35);text-decoration:none;" onmouseover="this.style.color='#D64000'" onmouseout="this.style.color='rgba(250,246,238,.35)'">← 回首頁</a>
+  </div>
+</footer>
+
+<script>
+// ── CONFIG — replace with your deployed Apps Script URL ────────────────────
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwy_fkPGj4szBVYVghKJtdD1wTaek8woksDDvre1Z7p99dbbZzuBObsuAl_3DG-CMXfnw/exec';
+// ──────────────────────────────────────────────────────────────────────────
+
+const DAY_NAMES = ['日','一','二','三','四','五','六'];
+const SESSION_LABELS = { '早診':'早診','午診':'午診','夜診':'夜診' };
+
+let selectedDate    = null;
+let selectedSession = null;
+
+// Nav scroll
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.style.borderBottomColor = window.scrollY > 60 ? 'rgba(26,23,16,.1)' : 'transparent';
+  navbar.style.boxShadow = window.scrollY > 60 ? '0 4px 24px rgba(26,23,16,.08)' : 'none';
+});
+document.getElementById('menu-btn').addEventListener('click', () =>
+  document.getElementById('mobile-menu').classList.toggle('open'));
+
+// ── Build date strip (today + 13 days) ────────────────────────────────────
+function buildDateStrip() {
+  const strip = document.getElementById('date-strip');
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  for (let i = 0; i < 14; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+    const isSunday  = d.getDay() === 0;
+    const dateStr   = toDateStr(d);
+    const isToday   = i === 0;
+
+    const btn = document.createElement('button');
+    btn.className   = 'date-btn' + (isSunday ? ' ' : '');
+    btn.disabled    = isSunday;
+    btn.dataset.date = dateStr;
+    btn.innerHTML   = `
+      <span class="day-label">${isToday ? '今日' : '週' + DAY_NAMES[d.getDay()]}</span>
+      <span class="day-num">${d.getDate()}</span>
+      <span style="font-size:.6rem;font-family:'Inter',sans-serif;opacity:.55;">${d.getMonth()+1}/${d.getDate()}</span>
+    `;
+    btn.addEventListener('click', () => selectDate(dateStr, btn));
+    strip.appendChild(btn);
+  }
+
+  // Auto-select first non-Sunday
+  const first = strip.querySelector('.date-btn:not(:disabled)');
+  if (first) first.click();
+}
+
+function selectDate(dateStr, btn) {
+  document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedDate = dateStr;
+  selectedSession = null;
+  closeForm();
+  loadSessions(dateStr);
+}
+
+// ── Load sessions ─────────────────────────────────────────────────────────
+async function loadSessions(date) {
+  const section  = document.getElementById('sessions-section');
+  const list     = document.getElementById('sessions-list');
+  const loading  = document.getElementById('sessions-loading');
+  const closed   = document.getElementById('sessions-closed');
+
+  section.style.display = 'block';
+  list.innerHTML    = '';
+  loading.style.display = 'block';
+  closed.style.display  = 'none';
+
+  try {
+    const url  = `${SCRIPT_URL}?action=availability&date=${date}`;
+    const resp = await fetch(url);
+    const data = await resp.json();
+
+    loading.style.display = 'none';
+
+    if (!data.availability || data.availability.length === 0) {
+      closed.style.display = 'block';
+      return;
+    }
+
+    data.availability.forEach(s => {
+      const card = document.createElement('div');
+      card.className = 'session-card' + (s.available ? '' : ' unavailable');
+      card.dataset.session = s.session;
+      card.innerHTML = `
+        <div>
+          <div style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.1rem;color:#1A1710;margin-bottom:.2rem;">${s.session}</div>
+          <div style="font-family:'Inter',sans-serif;font-size:.78rem;color:#7A7568;">${s.time}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:1rem;">
+          <div style="text-align:right;">
+            <div style="font-size:.68rem;color:#C4BFB5;font-family:'Inter',sans-serif;">${s.booked}/${s.capacity}</div>
+          </div>
+          <div class="availability-badge ${s.available ? 'open' : 'full'}">${s.available ? '○' : '✕'}</div>
+        </div>
+      `;
+      if (s.available) {
+        card.addEventListener('click', () => selectSession(s, card));
+      }
+      list.appendChild(card);
+    });
+
+  } catch (e) {
+    loading.style.display = 'none';
+    list.innerHTML = '<p style="color:#D64000;font-size:.85rem;padding:1rem;">無法載入診次資訊，請稍後再試。</p>';
+  }
+}
+
+// ── Select session ────────────────────────────────────────────────────────
+function selectSession(s, card) {
+  document.querySelectorAll('.session-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  selectedSession = s.session;
+
+  const d = new Date(selectedDate + 'T00:00:00');
+  document.getElementById('selected-date-label').textContent =
+    `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日（週${DAY_NAMES[d.getDay()]}）`;
+  document.getElementById('selected-session-label').textContent =
+    `${s.session}　${s.time}`;
+
+  openForm();
+}
+
+function openForm() {
+  const form = document.getElementById('booking-form-section');
+  form.classList.add('open');
+  setTimeout(() => form.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+}
+
+function closeForm() {
+  document.getElementById('booking-form-section').classList.remove('open');
+  document.getElementById('form-error').style.display = 'none';
+  document.querySelectorAll('.session-card').forEach(c => c.classList.remove('selected'));
+}
+
+// ── Submit booking ────────────────────────────────────────────────────────
+document.getElementById('submit-btn').addEventListener('click', async () => {
+  const name  = document.getElementById('input-name').value.trim();
+  const phone = document.getElementById('input-phone').value.trim();
+  const err   = document.getElementById('form-error');
+
+  err.style.display = 'none';
+
+  if (!name || !phone) {
+    err.textContent    = '請填寫姓名與聯絡電話';
+    err.style.display  = 'block';
+    return;
+  }
+  if (!selectedDate || !selectedSession) {
+    err.textContent    = '請先選擇日期與診次';
+    err.style.display  = 'block';
+    return;
+  }
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled   = true;
+  btn.innerHTML  = '<span class="spinner"></span> 掛號中⋯';
+
+  try {
+    const url  = `${SCRIPT_URL}?action=book&date=${selectedDate}&session=${encodeURIComponent(selectedSession)}&name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}`;
+    const resp = await fetch(url);
+    const data = await resp.json();
+
+    if (data.success) {
+      showSuccess(data);
+    } else {
+      err.textContent   = data.error || '掛號失敗，請稍後再試';
+      err.style.display = 'block';
+      btn.disabled  = false;
+      btn.innerHTML = '確認掛號';
+    }
+  } catch (e) {
+    err.textContent   = '網路錯誤，請稍後再試';
+    err.style.display = 'block';
+    btn.disabled  = false;
+    btn.innerHTML = '確認掛號';
+  }
+});
+
+function showSuccess(data) {
+  document.getElementById('booking-form-section').classList.remove('open');
+  const d = new Date(data.date + 'T00:00:00');
+  document.getElementById('queue-number').textContent = `#${data.queueNumber}`;
+  document.getElementById('success-detail').innerHTML =
+    `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日<br>${data.session}`;
+
+  const card = document.getElementById('success-card');
+  card.classList.add('show');
+  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function resetBooking() {
+  document.getElementById('success-card').classList.remove('show');
+  document.getElementById('input-name').value  = '';
+  document.getElementById('input-phone').value = '';
+  document.getElementById('submit-btn').disabled = false;
+  document.getElementById('submit-btn').innerHTML = '確認掛號';
+  selectedSession = null;
+  if (selectedDate) loadSessions(selectedDate);
+}
+
+// ── Utility ───────────────────────────────────────────────────────────────
+function toDateStr(d) {
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+buildDateStrip();
+</script>
+</body>
+</html>
