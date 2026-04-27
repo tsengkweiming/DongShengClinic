@@ -109,13 +109,18 @@ function getOrCreateSheet() {
     sheet.appendRow(['日期', '診次', '姓名', '電話', '身分證字號', '初/複診', '留言', '號碼', '時間戳記']);
     sheet.setFrozenRows(1);
   }
+  // Force column A to plain text so dates are never auto-converted to date serials
+  sheet.getRange('A:A').setNumberFormat('@');
   return sheet;
 }
 
-// Safely convert a cell value (may be Date object or string) to YYYY-MM-DD
+// Safely convert a cell value (may be Date object or string) to YYYY-MM-DD.
+// Must use the spreadsheet's timezone — NOT Session.getScriptTimeZone() — because
+// GAS creates Date objects relative to the spreadsheet timezone when reading cells.
 function cellToDateStr(cell) {
   if (cell instanceof Date) {
-    return Utilities.formatDate(cell, Session.getScriptTimeZone(), 'yyyy-MM-dd');
+    const tz = SpreadsheetApp.getActiveSpreadsheet().getSpreadsheetTimeZone();
+    return Utilities.formatDate(cell, tz, 'yyyy-MM-dd');
   }
   return String(cell).trim();
 }
