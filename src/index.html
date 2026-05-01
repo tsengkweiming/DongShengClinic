@@ -1188,27 +1188,32 @@
           <div style="position:absolute; inset:0; background:rgba(26,23,16,0.2); pointer-events:none;"></div>
         </div>
 
-        <!-- Opening hours -->
+        <!-- Opening hours (compact) -->
         <div style="background:rgba(250,246,238,0.04); border:1px solid rgba(250,246,238,0.08); padding:2rem;">
           <p class="label-caps" style="color:#D64000; margin-bottom:1.5rem;">診療時間</p>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
-            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0; border-bottom:1px solid rgba(250,246,238,0.06);">
-              <span style="font-size:0.82rem; color:rgba(250,246,238,0.6);">週一至週五</span>
-              <span style="font-size:0.82rem; color:#FAF6EE; font-family:'Inter',sans-serif;">請來電確認</span>
+          <div style="display:flex; flex-direction:column; gap:0;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline; padding:0.65rem 0; border-bottom:1px solid rgba(250,246,238,0.06);">
+              <span style="font-size:0.82rem; color:rgba(250,246,238,0.55);">早診</span>
+              <span style="font-size:0.82rem; color:#FAF6EE; font-family:'Inter',sans-serif; letter-spacing:0.04em;">08:30 – 12:00</span>
             </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0; border-bottom:1px solid rgba(250,246,238,0.06);">
-              <span style="font-size:0.82rem; color:rgba(250,246,238,0.6);">週六</span>
-              <span style="font-size:0.82rem; color:#FAF6EE; font-family:'Inter',sans-serif;">請來電確認</span>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; padding:0.65rem 0; border-bottom:1px solid rgba(250,246,238,0.06);">
+              <span style="font-size:0.82rem; color:rgba(250,246,238,0.55);">午診</span>
+              <span style="font-size:0.82rem; color:#FAF6EE; font-family:'Inter',sans-serif; letter-spacing:0.04em;">14:30 – 18:00</span>
             </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0;">
-              <span style="font-size:0.82rem; color:rgba(250,246,238,0.6);">週日</span>
-              <span style="font-size:0.82rem; color:rgba(250,246,238,0.4); font-family:'Inter',sans-serif;">休診</span>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; padding:0.65rem 0; border-bottom:1px solid rgba(250,246,238,0.06);">
+              <span style="font-size:0.82rem; color:rgba(250,246,238,0.55);">夜診</span>
+              <span style="font-size:0.82rem; color:#FAF6EE; font-family:'Inter',sans-serif; letter-spacing:0.04em;">18:30 – 21:00</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; padding:0.65rem 0;">
+              <span style="font-size:0.82rem; color:rgba(250,246,238,0.55);">週日</span>
+              <span style="font-size:0.82rem; color:rgba(250,246,238,0.3); font-family:'Inter',sans-serif;">休診</span>
             </div>
           </div>
-          <div style="margin-top:1.5rem; padding-top:1.25rem; border-top:1px solid rgba(250,246,238,0.06);">
-            <p style="font-size:0.78rem; color:rgba(250,246,238,0.45); line-height:1.6;">
-              ※ 確切診療時間請來電或參考 Facebook 頁面公告，如遇假日或特殊情況可能調整。
+          <div style="margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid rgba(250,246,238,0.06); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.75rem;">
+            <p style="font-size:0.75rem; color:rgba(250,246,238,0.35); line-height:1.6;">
+              ※ 各日診次不同，如遇國定假日可能調整。
             </p>
+            <a href="#schedule" style="font-family:'Inter',sans-serif; font-size:0.72rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#D64000; text-decoration:none; white-space:nowrap;">完整時刻表 ↑</a>
           </div>
         </div>
       </div>
