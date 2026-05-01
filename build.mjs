@@ -9,9 +9,15 @@ const DEFAULT_IMG = 'blog_headache.jpg';
 
 // ── helpers ────────────────────────────────────────────────────────────────
 
+const DAYS = ['週日','週一','週二','週三','週四','週五','週六'];
+
 function formatDate(iso) {
-  const [y, m, d] = String(iso).slice(0, 10).split('-');
-  return `${y}年${m}月${d}日`;
+  // gray-matter parses YAML dates as Date objects (midnight UTC); use
+  // toISOString() to get a reliable YYYY-MM-DD string in all timezones.
+  const s = iso instanceof Date ? iso.toISOString().slice(0, 10) : String(iso).slice(0, 10);
+  const [y, m, d] = s.split('-');
+  const dow = DAYS[new Date(s + 'T00:00:00Z').getUTCDay()];
+  return `${y}年${m}月${d}日 ${dow}`;
 }
 
 function getRelated(slug, tags, all) {
