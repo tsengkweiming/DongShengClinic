@@ -22,3 +22,8 @@
   to = "/src/appointment.html"
   status = 200
 
+[[redirects]]
+  from = "/js/*"
+  to = "/src/js/:splat"
+  status = 200
+
