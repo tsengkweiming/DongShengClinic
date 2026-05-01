@@ -121,7 +121,7 @@ function makePost(post, all) {
 <style>@media(min-width:768px){#desktop-nav{display:flex!important;}#menu-btn{display:none;}}</style>
 
 <div style="padding-top:4rem;height:420px;position:relative;overflow:hidden;">
-  <img src="../../common/clinic_assets/blog_photo/${img}" alt="${data.title}" style="width:100%;height:100%;object-fit:cover;filter:brightness(.7);">
+  <img src="/common/clinic_assets/blog_photo/${img}" alt="${data.title}" style="width:100%;height:100%;object-fit:cover;filter:brightness(.7);">
   <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.7) 0%,rgba(26,23,16,.2) 60%,transparent 100%);"></div>
   <div style="position:absolute;bottom:2.5rem;left:0;right:0;max-width:80rem;margin:0 auto;padding:0 2.5rem;">
     <nav style="display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;">
@@ -197,7 +197,7 @@ function makeBlogListing(all) {
     return `
       <a href="blog/${p.slug}.html" class="post-card fade-up" data-tags="${tagsAttr}">
         <div style="height:220px;overflow:hidden;position:relative;">
-          <img src="common/clinic_assets/blog_photo/${img}" alt="${p.data.title}" class="card-img">
+          <img src="/common/clinic_assets/blog_photo/${img}" alt="${p.data.title}" class="card-img">
           <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,16,.4),transparent);"></div>
           <span class="label-caps" style="position:absolute;top:1rem;left:1rem;color:#FAF6EE;background:rgba(214,64,0,.85);padding:.25rem .6rem;">${tag}</span>
         </div>
