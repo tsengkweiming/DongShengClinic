@@ -1,23 +1,9 @@
 // ── Config ──────────────────────────────────────────────────────────────────
-const SHEET_NAME = 'Bookings';
-const CAPACITY   = 10;
-
-// 0=Sun,1=Mon,2=Tue,3=Wed,4=Thu,5=Fri,6=Sat
-const SCHEDULE = {
-  0: [],
-  1: ['早診','午診','夜診'],
-  2: ['早診','午診'],
-  3: ['早診','午診','夜診'],
-  4: ['早診','午診','夜診'],
-  5: ['早診','午診'],
-  6: ['早診','午診'],
-};
-
-const SESSION_TIMES = {
-  '早診': '08:30 – 12:00',
-  '午診': '14:30 – 18:00',
-  '夜診': '18:30 – 21:00',
-};
+const SHEET_NAME          = 'Bookings';
+const SCHEDULE_SHEET_NAME = 'Schedule';
+const CAPACITY            = 10;
+const CACHE_KEY           = 'scheduleData';
+const CACHE_TTL           = 300; // seconds (5 min)
 
 // ── Entry point ──────────────────────────────────────────────────────────────
 function doGet(e) {
@@ -36,6 +22,8 @@ function doGet(e) {
       e.parameter.isFirstVisit,
       e.parameter.note || ''
     );
+  } else if (action === 'schedule') {
+    result = { schedule: getCachedSchedule() };
   } else {
     result = { error: 'Unknown action' };
   }
@@ -45,23 +33,88 @@ function doGet(e) {
     .setMimeType(ContentService.MimeType.JSON);
 }
 
+// ── Schedule (read from Sheet, cached) ───────────────────────────────────────
+function getCachedSchedule() {
+  const cache  = CacheService.getScriptCache();
+  const cached = cache.get(CACHE_KEY);
+  if (cached) return JSON.parse(cached);
+
+  const ss    = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet   = ss.getSheetByName(SCHEDULE_SHEET_NAME);
+  if (!sheet) sheet = createScheduleSheet(ss);
+
+  const rows     = sheet.getDataRange().getValues();
+  const schedule = { 0:[], 1:[], 2:[], 3:[], 4:[], 5:[], 6:[] };
+
+  for (let i = 1; i < rows.length; i++) {
+    const [day, session, time, doctor, active] = rows[i];
+    if (active === false || active === 'FALSE' || active === 0) continue;
+    const dow = parseInt(day);
+    if (isNaN(dow) || dow < 0 || dow > 6) continue;
+    schedule[dow].push({
+      name  : String(session).trim(),
+      time  : String(time).trim(),
+      doctor: String(doctor).trim(),
+    });
+  }
+
+  cache.put(CACHE_KEY, JSON.stringify(schedule), CACHE_TTL);
+  return schedule;
+}
+
+// Creates the Schedule sheet on first deploy and pre-fills with current data.
+// Staff can then edit rows directly in Google Sheets — no code changes needed.
+function createScheduleSheet(ss) {
+  const sheet = ss.insertSheet(SCHEDULE_SHEET_NAME);
+  sheet.appendRow(['Day (0=Sun…6=Sat)', 'Session', 'Time', 'Doctor', 'Active']);
+  sheet.setFrozenRows(1);
+
+  // Mirror of schedule-data.js — edit here (in the sheet) to update both pages
+  const rows = [
+    [1, '早診', '08:30 – 12:00', '曾冬勝 醫師',        true],
+    [1, '午診', '14:30 – 18:00', '吳焜棋 醫師',        true],
+    [1, '夜診', '18:30 – 21:00', '曾冬勝 醫師',        true],
+    [2, '早診', '08:30 – 12:00', '曾冬勝・陳鑫儀 醫師', true],
+    [2, '午診', '14:30 – 18:00', '吳焜棋 醫師',        true],
+    [3, '早診', '08:30 – 12:00', '曾冬勝 醫師',        true],
+    [3, '午診', '14:30 – 18:00', '曾冬勝 醫師',        true],
+    [3, '夜診', '18:30 – 21:00', '吳焜棋 醫師',        true],
+    [4, '早診', '08:30 – 12:00', '曾冬勝 醫師',        true],
+    [4, '午診', '14:30 – 18:00', '吳焜棋 醫師',        true],
+    [4, '夜診', '18:30 – 21:00', '曾冬勝/黃久恩 醫師', true],
+    [5, '早診', '08:30 – 12:00', '曾冬勝 醫師',        true],
+    [5, '午診', '14:30 – 18:00', '曾冬勝 醫師',        true],
+    [6, '早診', '08:30 – 12:00', '曾冬勝 醫師',        true],
+    [6, '午診', '14:30 – 18:00', '曾冬勝 醫師',        true],
+  ];
+
+  sheet.getRange(2, 1, rows.length, 5).setValues(rows);
+  sheet.getRange('A:A').setNumberFormat('0');
+  sheet.getRange(2, 5, rows.length, 1).insertCheckboxes();
+  sheet.autoResizeColumns(1, 5);
+
+  return sheet;
+}
+
 // ── Availability ─────────────────────────────────────────────────────────────
 function getAvailability(date) {
   if (!date) return { error: 'Missing date' };
 
-  const d = new Date(date + 'T00:00:00');
-  const dow = d.getDay();
-  const sessions = SCHEDULE[dow] || [];
+  const d        = new Date(date + 'T00:00:00');
+  const dow      = d.getDay();
+  const schedule = getCachedSchedule();
+  const sessions = schedule[dow] || [];
 
   const sheet  = getOrCreateSheet();
   const counts = countBookings(sheet, date);
 
   const availability = sessions.map(s => ({
-    session  : s,
-    time     : SESSION_TIMES[s],
-    booked   : counts[s] || 0,
+    session  : s.name,
+    time     : s.time,
+    doctor   : s.doctor,
+    booked   : counts[s.name] || 0,
     capacity : CAPACITY,
-    available: (counts[s] || 0) < CAPACITY,
+    available: (counts[s.name] || 0) < CAPACITY,
   }));
 
   return { date, availability };
@@ -77,16 +130,16 @@ function makeBooking(date, session, name, phone, idNumber, isFirstVisit, note) {
     return { success: false, error: '系統忙碌，請稍後再試' };
 
   try {
-    const sheet  = getOrCreateSheet();
-    const counts = countBookings(sheet, date);
-    const booked = counts[session] || 0;
+    const sheet    = getOrCreateSheet();
+    const counts   = countBookings(sheet, date);
+    const booked   = counts[session] || 0;
 
     if (booked >= CAPACITY)
       return { success: false, error: '此診次已額滿' };
 
-    // Validate the session exists on that day
-    const dow   = new Date(date + 'T00:00:00').getDay();
-    const valid = (SCHEDULE[dow] || []).includes(session);
+    const dow      = new Date(date + 'T00:00:00').getDay();
+    const schedule = getCachedSchedule();
+    const valid    = (schedule[dow] || []).some(s => s.name === session);
     if (!valid)
       return { success: false, error: '該日無此診次' };
 
@@ -109,14 +162,10 @@ function getOrCreateSheet() {
     sheet.appendRow(['日期', '診次', '姓名', '電話', '身分證字號', '初/複診', '留言', '號碼', '時間戳記']);
     sheet.setFrozenRows(1);
   }
-  // Force column A to plain text so dates are never auto-converted to date serials
   sheet.getRange('A:A').setNumberFormat('@');
   return sheet;
 }
 
-// Safely convert a cell value (may be Date object or string) to YYYY-MM-DD.
-// Must use the spreadsheet's timezone — NOT Session.getScriptTimeZone() — because
-// GAS creates Date objects relative to the spreadsheet timezone when reading cells.
 function cellToDateStr(cell) {
   if (cell instanceof Date) {
     const tz = SpreadsheetApp.getActiveSpreadsheet().getSpreadsheetTimeZone();

@@ -311,6 +311,7 @@ async function loadSessions(date) {
         <div>
           <div style="font-family:'Noto Serif TC',serif;font-weight:700;font-size:1.1rem;color:#1A1710;margin-bottom:.2rem;">${s.session}</div>
           <div style="font-family:'Inter',sans-serif;font-size:.78rem;color:#7A7568;">${s.time}</div>
+          ${s.doctor ? `<div style="font-family:'Noto Sans TC',sans-serif;font-size:.8rem;color:#1A1710;margin-top:.3rem;font-weight:500;">${s.doctor}</div>` : ''}
         </div>
         <div style="display:flex;align-items:center;gap:1rem;">
           <div style="text-align:right;">
@@ -342,7 +343,7 @@ function selectSession(s, card) {
   document.getElementById('selected-date-label').textContent =
     `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日（週${DAY_NAMES[d.getDay()]}）`;
   document.getElementById('selected-session-label').textContent =
-    `${s.session}　${s.time}`;
+    `${s.session}　${s.time}${s.doctor ? '　' + s.doctor : ''}`;
 
   openForm();
 }
