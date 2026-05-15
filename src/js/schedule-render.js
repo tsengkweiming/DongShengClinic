@@ -3,7 +3,7 @@
 // Falls back to window.SCHEDULE from schedule-data.js if the fetch fails.
 
 (function () {
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyH9DilFvRAXs8we-eAOL1hLygTMapUF7nnbYb3-DB-yrHjQXoyLGTnS-GHwSphIZ4pBQ/exec';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz73BErjMwSASp_fsbXyzUfqD0aDm7xvL1LUAVpron8re1D3SxOJ31u7PVRO8uvwq0jmg/exec';
   const DAY_LABELS = ['週日','週一','週二','週三','週四','週五','週六'];
   const DAY_EN     = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
   const ORDER      = [1,2,3,4,5,6,0]; // Mon → Sun
