@@ -154,7 +154,8 @@ function makeBooking(date, session, name, phone, idNumber, isFirstVisit, note) {
       return { success: false, error: '該日無此診次' };
 
     const queueNumber = booked + 1;
-    sheet.appendRow([date, session, name, phone, idNumber, isFirstVisit, note, queueNumber, new Date()]);
+    sheet.insertRowBefore(2);
+    sheet.getRange(2, 1, 1, 9).setValues([[date, session, name, phone, idNumber, isFirstVisit, note, queueNumber, new Date()]]);
 
     return { success: true, queueNumber, date, session };
 
