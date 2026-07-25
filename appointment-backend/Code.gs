@@ -43,7 +43,8 @@ function getCachedSchedule() {
   let sheet   = ss.getSheetByName(SCHEDULE_SHEET_NAME);
   if (!sheet) sheet = createScheduleSheet(ss);
 
-  const rows     = sheet.getDataRange().getValues();
+  const lastRow  = sheet.getLastRow();
+  const rows     = lastRow < 1 ? [] : sheet.getRange(1, 1, lastRow, 5).getValues();
   const schedule = { 0:[], 1:[], 2:[], 3:[], 4:[], 5:[], 6:[] };
 
   for (let i = 1; i < rows.length; i++) {
@@ -125,12 +126,21 @@ function makeBooking(date, session, name, phone, idNumber, isFirstVisit, note) {
   if (!date || !session || !name || !phone || !idNumber || !isFirstVisit)
     return { success: false, error: '請填寫所有必填欄位' };
 
+  // Rate-limit: same phone may not book more than 3 times on the same day
+  const allSheet = getOrCreateSheet();
+  const allData  = allSheet.getLastRow() > 1
+    ? allSheet.getRange(2, 1, allSheet.getLastRow() - 1, 4).getValues()
+    : [];
+  const phoneHits = allData.filter(r => String(r[3]) === phone && String(r[0]) === date).length;
+  if (phoneHits >= 3)
+    return { success: false, error: '同一電話號碼近期預約次數已達上限，如有疑問請來電洽詢。' };
+
   const lock = LockService.getScriptLock();
   if (!lock.tryLock(6000))
     return { success: false, error: '系統忙碌，請稍後再試' };
 
   try {
-    const sheet    = getOrCreateSheet();
+    const sheet    = allSheet;
     const counts   = countBookings(sheet, date);
     const booked   = counts[session] || 0;
 
@@ -162,7 +172,6 @@ function getOrCreateSheet() {
     sheet.appendRow(['日期', '診次', '姓名', '電話', '身分證字號', '初/複診', '留言', '號碼', '時間戳記']);
     sheet.setFrozenRows(1);
   }
-  sheet.getRange('A:A').setNumberFormat('@');
   return sheet;
 }
 
@@ -175,7 +184,9 @@ function cellToDateStr(cell) {
 }
 
 function countBookings(sheet, date) {
-  const data   = sheet.getDataRange().getValues();
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 2) return {};
+  const data = sheet.getRange(1, 1, lastRow, sheet.getLastColumn()).getValues();
   const counts = {};
   for (let i = 1; i < data.length; i++) {
     if (cellToDateStr(data[i][0]) === date) {
