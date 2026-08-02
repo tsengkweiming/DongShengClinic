@@ -10,3 +10,6 @@ yarn-error.log
 DongShengClinic*
 .claude
 temporary screenshots
+promo/screens/
+capture-steps.mjs
+capture-annots.mjs
