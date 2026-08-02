@@ -14,7 +14,7 @@
 
   grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem 0;color:#C4BFB5;font-size:.85rem;font-family:'Inter',sans-serif;letter-spacing:.1em;">載入中⋯</div>`;
 
-  fetch(SCRIPT_URL + '?action=schedule&_=' + Date.now())
+  fetch(SCRIPT_URL + '?action=schedule')
     .then(r => r.json())
     .then(data => render(data.schedule))
     .catch(() => render(window.SCHEDULE));
