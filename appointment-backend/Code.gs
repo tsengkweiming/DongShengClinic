@@ -3,7 +3,7 @@ const SHEET_NAME          = 'Bookings';
 const SCHEDULE_SHEET_NAME = 'Schedule';
 const CAPACITY            = 10;
 const CACHE_KEY           = 'scheduleData';
-const CACHE_TTL           = 300; // seconds (5 min)
+const CACHE_TTL           = 21600; // seconds (6 hours)
 
 // ── Entry point ──────────────────────────────────────────────────────────────
 function doGet(e) {
@@ -194,4 +194,10 @@ function countBookings(sheet, date) {
     }
   }
   return counts;
+}
+
+// ── Utilities ────────────────────────────────────────────────────────────────
+// Run this manually from the Apps Script editor after editing the Schedule sheet.
+function clearScheduleCache() {
+  CacheService.getScriptCache().remove(CACHE_KEY);
 }
