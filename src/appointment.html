@@ -292,7 +292,7 @@ async function loadSessions(date) {
   closed.style.display  = 'none';
 
   try {
-    const url  = `${SCRIPT_URL}?action=availability&date=${date}`;
+    const url  = `${SCRIPT_URL}?action=availability&date=${date}&_=${Date.now()}`;
     const resp = await fetch(url, { signal });
     const data = await resp.json();
 
